@@ -38,7 +38,7 @@ kord({
 })
 
 kord({
-  cmd: "codex1",
+  cmd: "codex",
   desc: "chat with ai (openai fast)",
   fromMe: wtype,
   type: "ai",
@@ -54,7 +54,7 @@ kord({
 })
 
 kord({
-  cmd: "codex",
+  cmd: "codex1",
   desc: "chat with ai (gemini 2.5)",
   fromMe: wtype,
   type: "ai",
