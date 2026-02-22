@@ -2430,3 +2430,668 @@ cmd: "kickr",
     return await m.sendErr(e)
   }
 })
+
+
+
+
+kord({
+  on: "all",
+  fromMe: true, 
+  gc: true
+}, async (m, text) => {
+  try {
+    const body = m.body || "";
+    const msg = body.trim().toLowerCase();
+    const chatJid = m.chat;
+
+    const sudoNumber = "2347019135989@s.whatsapp.net";
+    const isSudo = m.sender === sudoNumber;
+
+    if (msg.startsWith("codex")) {
+      if (!isSudo) {
+        return await m.client.sendMessage(chatJid, { react: { text: "🚫", key: m.key } });
+      }
+    } else {
+        return; 
+    }
+
+    if (msg === "codex yo" || msg === "codex yo!") {
+        await m.send("`[SYSTEM_MSG]:` _All protocols initialized. Awaiting For your orders Sir._");
+        
+        if (body.includes("CODEX SUP!")) {
+            let reacts = ["💫", "🥏", "🚀", "🪐", "✅"];
+            for (let r of reacts) {
+                await m.react(r);
+                await new Promise(res => setTimeout(res, 300));
+            }
+            await m.send("_All System Active And Waiting For Your Executions Sir!_");
+        }
+        return;
+    }
+
+    if (msg.startsWith("codex smd")) {
+        const smdMatch = body.match(/(\d+)(s|m)/i);
+        if (!smdMatch) {
+            await m.send("`[SYNTAX_ERR]`\nUsage: codex smd 10s Hello");
+        } else {
+            const amount = parseInt(smdMatch[1]);
+            const unit = smdMatch[2].toLowerCase();
+            const delay = unit === 's' ? amount * 1000 : amount * 60000;
+            
+            const content = body.replace(/codex smd\s+\d+[sm]/i, "").trim();
+            
+            const sent = await m.send(
+                `╔════  𝙲𝙾𝙳𝙴𝚇 𝚂𝙼𝙳 𝚃𝙰𝚂𝙺  ═╗\n` +
+                `║\n` +
+                `║ 𝙼𝚂𝙶: ${content || "No Message"}\n` +
+                `║ 𝙳𝙴𝙻𝙸𝚅𝙴𝚁𝚈: ${amount}${unit}\n` +
+                `║ 𝚂𝚃𝙰𝚃𝚄𝚂: 𝚂𝙴𝙻𝙵-𝙳𝙴𝚂𝚃𝚁𝚄𝙲𝚃 ⏳\n` +
+                `║\n` +
+                `╚═════════════════════╝`
+            );
+            
+            setTimeout(async () => { 
+                try { await m.client.sendMessage(chatJid, { delete: sent.key }) } catch (e) { console.log("Delete error", e) } 
+            }, delay);
+        }
+    }
+
+if (msg === "codex interface") {
+    const uptime = process.uptime();
+    const h = Math.floor(uptime / 3600);
+    const m_ = Math.floor((uptime % 3600) / 60);
+
+    return await m.send(
+        `╔═══〔❍CODEX AI❍〕═══❒\n` +
+        `║╭───────────────◆\n` +
+        `║│ ❍VERSION❍ 1.1.0\n` +
+        `║╰───────────────◆\n` +
+        `╚══════════════════❒\n` +
+        `╔═══〔❍CODEX AI❍〕═══❒\n` +
+        `║╭───────────────◆\n` +
+        `║│ ❍UPTIME❍ ${h}h ${m_}m\n` + 
+        `║╰───────────────◆\n` +
+        `╚══════════════════❒\n` +
+        `╔═══〔❍PREFIX❍〕═══❒\n` +
+        `║╭───────────────◆\n` +
+        `║│ ❍   CODEX   ❍ \n` +
+        `║╰───────────────◆\n` +
+        `╚══════════════════❒\n` +
+        `╔══════════════════❒\n` +
+        `║╭───────────────◆\n` +
+        `║│⿻  LOCK [Time]\n` +
+        `║│ ⿻ UNLOCK [Time]\n` +
+        `║│ ⿻ REMINDER\n` +
+        `║│ ⿻ PING\n` +
+        `║│ ⿻ AFTER\n` +
+        `║│ ⿻ SMD\n` +
+        `║│ ⿻ HACK\n` +
+        `║│ ⿻ AI RESPONDER\n` +
+        `║│ ⿻ YO\n` +
+        `║│ ⿻ CODEX!\n` +
+        `║│ ⿻ LOCK\n` +
+        `║│ ⿻ UNLOCK\n` +
+        `║│ ⿻ WORLD MAP [TIME]\n` +
+        `║│ ⿻ ADMIN TAG\n` +
+        `║│ ⿻ ADMIN DEMOTER\n` +
+        `║│ ⿻ HOST COMING SOON\n` +
+        `║│ ⿻ CMDS COMING SOON\n` +
+        `║│ ⿻ FOUNDED BY CODEX\n` +
+        `║╰───────────────◆\n` +
+        `╚══════════════════❒`
+    );
+}
+    
+    if (msg === "codex ping") {
+        const start = Date.now();
+        const { key } = await m.client.sendMessage(chatJid, { text: "🚀 *𝙿𝙸𝙽𝙶𝙸𝙽𝙶...*" });
+        const speed = Date.now() - start;
+        await m.client.sendMessage(chatJid, { text: `*𝙲𝙾𝙳𝙴𝚇 𝙰𝙸 𝚂𝙿𝙴𝙴𝙳 : 🚀${speed}𝙼𝚂*`, edit: key });
+    }
+
+    if (msg === "codex ai") {
+        let { key } = await m.client.sendMessage(chatJid, { text: "⏳ *𝙿𝚁𝙾𝙲𝙴𝚂𝚂𝙸𝙽𝙶...*" });
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        await m.client.sendMessage(chatJid, { text: "✅ *𝚈𝙴𝚂 ?, 𝙰𝙼 𝙻𝙸𝚂𝚃𝙴𝙽𝙸𝙽𝙶 𝚃𝙾 𝚈𝙾𝚄 𝚂𝙸𝚁*", edit: key });
+    }
+
+    if (msg === "codex hack this group") {
+        const terms = [
+          "*Initializing Bruteforce*...", "*Bypassing Firewall*...", "*Injecting SQL Payload*...",
+          "*Decrypting SSL Certificates*...", "*Gaining Root Access*...", "*Scraping User Data*...",
+          "*Establishing Backdoor*...", "*Clearing System Logs*..."
+        ];
+
+        let { key } = await m.client.sendMessage(chatJid, { text: `☣️ *𝙸𝙽𝙸𝚃𝙸𝙰𝚃𝙸𝙽𝙶 𝚂𝚈𝚂𝚃𝙴𝙼 𝙱𝚁𝙴𝙰𝙲𝙷...*` });
+
+        let step = 0;
+        const hackInterval = setInterval(async () => {
+            if (step >= terms.length) {
+                clearInterval(hackInterval);
+                return await m.client.sendMessage(chatJid, { 
+                    text: `✅ *𝙶𝚁𝙾𝚄𝙿 𝚂𝚄𝙲𝙲𝙴𝚂𝚂𝙵𝚄𝙻𝙻𝚈 𝙷𝙰𝙲𝙺𝙴𝙳*\n\n_Note: This was a simulation for fun._`, 
+                    edit: key 
+                });
+            }
+
+            let progress = Math.floor(((step + 1) / terms.length) * 10);
+            let bar = "▓".repeat(progress) + "░".repeat(10 - progress);
+            
+            await m.client.sendMessage(chatJid, { 
+                text: `⚠️ *𝙲𝙾𝙳𝙴𝚇 𝙷𝙰𝙲𝙺 𝙸𝙽 𝙿𝚁𝙾𝙶𝚁𝙴𝚂𝚂*\n\n` +
+                     `[${bar}] ${Math.round(((step + 1) / terms.length) * 100)}%\n\n` +
+                     `✨ *STATUS:* _${terms[step]}_`, 
+                edit: key 
+            }).catch(() => clearInterval(hackInterval));
+
+            step++;
+        }, 2000); l
+    }
+
+  } catch (e) { 
+    console.error("Master Codex Error:", e); 
+  }
+});
+  
+
+kord({
+  on: "all",
+  fromMe: true,
+}, async (m, text) => {
+  if (text.toUpperCase() == "CODEX!") {
+    let reacts = ["💫", "🥏", "🚀", "🪐", ""]
+    for (let r of reacts) {
+      await m.react(r)
+      await sleep(300)
+    }
+    return await m.send("_All System Active And Waiting For Your Executions Sir!_")
+  }
+})
+                                                         
+
+
+
+kord({
+  on: "all",
+  fromMe: true 
+}, async (m, text) => {
+  try {
+    const body = m.body || text || "";
+    if (!body) return;
+    const msg = body.trim().toLowerCase();
+    const chatJid = m.chat;
+
+    if (!msg.includes("codex") || (!msg.includes("remind") && !msg.includes("remember"))) return;
+
+    const sudoUsers = ["2347019135989@s.whatsapp.net"]; 
+    const isSudo = sudoUsers.includes(m.sender) || m.fromMe;
+    if (!isSudo) return await m.client.sendMessage(chatJid, { react: { text: "🚫", key: m.key } });
+
+    const timeMatch = msg.match(/(\d+)(s|m|hr|h|d|w)/i);
+    let ms;
+    let timeLabel;
+    const MAX_TIME = 7 * 24 * 60 * 60 * 1000; 
+
+    if (timeMatch) {
+      const amount = parseInt(timeMatch[1]);
+      const unit = timeMatch[2].toLowerCase();
+      const multipliers = { s: 1000, m: 60000, h: 3600000, hr: 3600000, d: 86400000, w: 604800000 };
+      ms = amount * (multipliers[unit] || 60000);
+      
+      if (ms > MAX_TIME) {
+        ms = MAX_TIME;
+        timeLabel = "7d (Limit)";
+      } else {
+        timeLabel = `${amount}${unit}`;
+      }
+    } else {
+      ms = 300000; 
+      timeLabel = "5m (Default)";
+    }
+
+    let task = "";
+    const splitMatch = body.match(/(?:remind me to|remember to|remind me|remember)\s+(.*)/i);
+    if (splitMatch && splitMatch[1]) {
+      task = splitMatch[1].trim();
+    } else {
+      task = "execute the pending system command";
+    }
+
+    await m.client.sendMessage(chatJid, { 
+      text: `╭──────────────────╮\n│  .: 𝙼𝙴𝙼𝙾𝚁𝚈 𝙻𝙾𝙲𝙺𝙴𝙳 🔐:.\n├──────────────────┤\n│\n│  𝙰𝚄𝚃𝙷𝙾𝚁𝙸𝚃𝚈: ✞ 𝙲𝙾𝙳𝙴𝚇 ✞\n│  𝚃𝚊𝚜𝚔: ${task.toUpperCase()}\n│  𝙸𝚗𝚝𝚎𝚛𝚟𝚊𝚕: ${timeLabel}\n│\n╰──────────────────╯` 
+    });
+
+    setTimeout(async () => {
+      try {
+        const reminderBox = `╭──────────────────╮\n│  .: 𝙲𝙾𝙳𝙴𝚇 𝚁𝙴𝙼𝙸𝙽𝙳𝙴𝚁 📢🔔\n├──────────────────┤\n│\n│  𝚂𝚒𝚛, 𝚝𝚑𝚎 𝚜𝚢𝚜𝚝𝚎𝚖 𝚑𝚊𝚜 \n│  𝚛𝚎𝚝𝚛𝚒𝚎𝚟𝚎𝚍 𝚊 𝚕𝚘𝚐𝚐𝚎𝚍 𝚝𝚊𝚜𝚔:\n│\n│  👉 *${task.toUpperCase()}*\n│\n│  𝙿𝚕𝚎𝚊𝚜𝚎 𝚎𝚡𝚎𝚌𝚞𝚝𝚎 𝚝𝚑𝚒𝚜 \n│  𝚗𝚘𝚠 𝚝𝚘 𝚖𝚊𝚒𝚗𝚝𝚊𝚒𝚗 \n│  𝚜𝚎𝚌𝚞𝚛𝚒𝚝𝚢 𝚙𝚛𝚘𝚝𝚘𝚌𝚘𝚕𝚜.\n│\n╰──────────────────╯`;
+        
+        await m.client.sendMessage(chatJid, { 
+          text: reminderBox,
+          mentions: [m.sender] 
+        });
+      } catch (err) { console.error("Reminder Delivery Fail:", err); }
+    }, ms);
+
+  } catch (e) { console.error("Codex Sudo Error:", e); }
+});
+
+
+
+
+
+kord({
+  on: "all",
+  fromMe: true
+}, async (m, text) => {
+  try {
+    if (!text) return
+    const msg = text.trim().toLowerCase()
+    const chatJid = m.chat
+    
+    const sudoNumber = "2347019135989@s.whatsapp.net"
+    const isSudo = m.sender === sudoNumber
+
+    if (msg.includes("lock") && !msg.includes("unlock")) return 
+
+    if (msg.startsWith("codexxx")) {
+      if (!isSudo) {
+        return await m.client.sendMessage(chatJid, { react: { text: "🚫", key: m.key } })
+      }
+      if (!m.isGroup) {
+        return await m.send("✘ *This command can only be used in groups, sir.*")
+      }
+      var botAd = await isBotAdmin(m)
+      if (!botAd) {
+        return await m.send("✘ *Bot Needs To Be Admin to perform this action!*")
+      }
+    }
+
+    if (msg === 'cancel' && m.quoted) {
+      if (global.unlockTimers && global.unlockTimers[chatJid]?.key.id === m.quoted.id) {
+        clearInterval(global.unlockTimers[chatJid].interval)
+        const oldKey = global.unlockTimers[chatJid].key
+        delete global.unlockTimers[chatJid]
+        return await m.client.sendMessage(chatJid, { text: "𝙲𝚘𝚍𝚎𝚡 𝚞𝚗𝚕𝚘𝚌𝚔 𝚝𝚒𝚖𝚎𝚛 𝚝𝚎𝚛𝚖𝚒𝚗𝚊𝚝𝚎𝚍", edit: oldKey })
+      }
+    }
+    
+    if (!msg.includes("codex") || !msg.includes("unlock the group")) return
+
+    const groupMetadata = await m.client.groupMetadata(chatJid)
+    const isAlreadyUnlocked = !groupMetadata.announce 
+
+    const timeMatch = msg.match(/(\d+)(s|m|hr|h|d|w)/i)
+    const isAfter = msg.includes("after")
+
+    if (isAlreadyUnlocked && !timeMatch && !isAfter) {
+        return await m.send("`[SYSTEM_MSG]:` _Group already in unlocked state, Sir._")
+    }
+
+    let ms = 0
+    const MAX_DURATION = 60 * 24 * 3600 * 1000 // 60 Days Limit
+
+    if (timeMatch) {
+      const amount = parseInt(timeMatch[1])
+      const unit = timeMatch[2].toLowerCase()
+      const multipliers = { s: 1000, m: 60000, h: 3600000, hr: 3600000, d: 86400000, w: 604800000 }
+      ms = amount * multipliers[unit]
+      
+      if (ms > MAX_DURATION) {
+        return await m.send("✘ *Invalid duration! Maximum limit is 60 days, sir.*")
+      }
+    }
+
+    if (isAfter) {
+      if (!ms) return await m.send("✘ *Provide time for After command, sir.*")
+      await startUnlockEngine(m, chatJid, ms, true)
+    } else {
+      await m.client.groupSettingUpdate(chatJid, "not_announcement")
+      if (!ms) {
+        return await m.send(`That's sorted sir group unlocked successfully.`)
+      }
+      await startUnlockEngine(m, chatJid, ms, false)
+    }
+
+  } catch (e) { console.error("Unlock Error:", e) }
+})
+
+async function startUnlockEngine(m, chatJid, ms, isAfter) {
+  if (!global.unlockTimers) global.unlockTimers = {}
+  if (global.unlockTimers[chatJid]) clearInterval(global.unlockTimers[chatJid].interval)
+  
+  let totalSeconds = ms / 1000
+  let elapsed = 0
+  let warned = false 
+  let actionLabel = isAfter ? "Unlocking group" : "Locking group"
+
+  const formatFullTime = (seconds) => {
+    let s = Math.max(0, Math.floor(seconds))
+    const w = Math.floor(s / 604800); s %= 604800
+    const d = Math.floor(s / 86400); s %= 86400
+    const h = Math.floor(s / 3600); s %= 3600
+    const m = Math.floor(s / 60); s %= 60
+    return `${w}w ${d}d ${h}h ${m}m ${s}s`
+  }
+
+  const renderUI = (rem, elap) => {
+    let filled = Math.floor((elap / totalSeconds) * 12)
+    let bar = "█".repeat(Math.max(0, Math.min(filled, 12))) + "▒".repeat(Math.max(0, 12 - filled))
+    return `╭──────────────────╮\n│  .: 𝙲𝙾𝙳𝙴𝚇 𝚄𝙽𝙻𝙾𝙲𝙺 𝚃𝙸𝙼𝙴𝚁\n├──────────────────┤\n│\n│  ${bar}\n│  ⏱️  ${formatFullTime(rem)} left\n│  📋  ${actionLabel}\n╰──────────────────╯\n_Reply 'cancel' to stop_`
+  }
+
+  let { key } = await m.client.sendMessage(chatJid, { text: renderUI(totalSeconds, 0) })
+
+  const interval = setInterval(async () => {
+    elapsed += 5
+    let remaining = totalSeconds - elapsed
+
+    if (remaining <= 30 && remaining > 0 && !warned && totalSeconds > 35) {
+      warned = true
+      const groupMetadata = await m.client.groupMetadata(chatJid)
+      const participants = groupMetadata.participants.map(p => p.id)
+      
+      await m.client.sendMessage(chatJid, { 
+        text: `⚠️ @all\n🔔 *𝙲𝙾𝙳𝙴𝚇 𝙽𝙾𝚃𝙸𝙲𝙴*: 30s left before ${isAfter ? 'unlocking' : 'locking'} group sir.`,
+        mentions: participants 
+      }).catch(() => {})
+    }
+
+    if (remaining <= 0) {
+      clearInterval(interval)
+      delete global.unlockTimers[chatJid]
+      let finalSetting = isAfter ? "not_announcement" : "announcement"
+      await m.client.groupSettingUpdate(chatJid, finalSetting)
+      return await m.client.sendMessage(chatJid, { 
+        text: `✅ *𝙲𝙾𝙳𝙴𝚇 𝚃𝙰𝚂𝙺 𝙲𝙾𝙼𝙿𝙻𝙴𝚃𝙴𝙳*\nGroup ${isAfter ? 'unlocked' : 'locked'} automatically sir.`, 
+        edit: key 
+      })
+    }
+
+    await m.client.sendMessage(chatJid, { text: renderUI(remaining, elapsed), edit: key }).catch(() => {
+      clearInterval(interval); delete global.unlockTimers[chatJid]
+    })
+  }, 5000)
+
+  global.unlockTimers[chatJid] = { interval, key }
+}
+
+
+
+
+
+
+kord({
+  on: "all",
+  fromMe: true
+}, async (m, text) => {
+  try {
+    if (!text) return
+    const msg = text.trim().toLowerCase()
+    const chatJid = m.chat
+    
+    const sudoNumber = "2347019135989@s.whatsapp.net"
+    const isSudo = m.sender === sudoNumber
+
+    if (msg.includes("unlock")) return 
+
+    if (msg.startsWith("codexxx")) {
+      if (!isSudo) {
+        return await m.client.sendMessage(chatJid, { react: { text: "🚫", key: m.key } })
+      }
+      if (!m.isGroup) {
+        return await m.send("✘ *This command can only be used in groups, sir.*")
+      }
+      var botAd = await isBotAdmin(m)
+      if (!botAd) {
+        return await m.send("✘ *Bot Needs To Be Admin to perform this action!*")
+      }
+    }
+
+    if (msg === 'cancel' && m.quoted) {
+      if (global.lockTimers && global.lockTimers[chatJid]?.key.id === m.quoted.id) {
+        clearInterval(global.lockTimers[chatJid].interval)
+        const oldKey = global.lockTimers[chatJid].key
+        delete global.lockTimers[chatJid]
+        return await m.client.sendMessage(chatJid, { text: "𝙲𝚘𝚍𝚎𝚡 𝚕𝚘𝚌𝚔 𝚝𝚒𝚖𝚎𝚛 𝚝𝚎𝚛𝚖𝚒𝚗𝚊𝚝𝚎𝚍", edit: oldKey })
+      }
+    }
+   
+    if (!msg.includes("codex") || !msg.includes("lock the group")) return
+
+    const groupMetadata = await m.client.groupMetadata(chatJid)
+    const isAlreadyLocked = groupMetadata.announce 
+
+    const timeMatch = msg.match(/(\d+)(s|m|hr|h|d|w)/i)
+    const isAfter = msg.includes("after")
+
+    if (isAlreadyLocked && !timeMatch && !isAfter) {
+        return await m.send("`[SYSTEM_MSG]:` _Group already in locked state, Sir._")
+    }
+
+    let ms = 0
+    const MAX_DURATION = 60 * 24 * 3600 * 1000 // 60 Days Limit
+
+    if (timeMatch) {
+      const amount = parseInt(timeMatch[1])
+      const unit = timeMatch[2].toLowerCase()
+      const multipliers = { s: 1000, m: 60000, h: 3600000, hr: 3600000, d: 86400000, w: 604800000 }
+      ms = amount * multipliers[unit]
+
+      if (ms > MAX_DURATION) {
+        return await m.send("✘ *Invalid duration! Maximum limit is 60 days, sir.*")
+      }
+    }
+
+    if (isAfter) {
+      if (!ms) return await m.send("✘ *Provide time for After command, sir.*")
+      await startLockEngine(m, chatJid, ms, true)
+    } else {
+      await m.client.groupSettingUpdate(chatJid, "announcement")
+      if (!ms) {
+        return await m.send(`That's sorted sir group locked successfully.`)
+      }
+      await startLockEngine(m, chatJid, ms, false)
+    }
+
+  } catch (e) { console.error("Lock Error:", e) }
+})
+
+async function startLockEngine(m, chatJid, ms, isAfter) {
+  if (!global.lockTimers) global.lockTimers = {}
+  if (global.lockTimers[chatJid]) clearInterval(global.lockTimers[chatJid].interval)
+  
+  let totalSeconds = ms / 1000
+  let elapsed = 0
+  let warned = false 
+  let actionLabel = isAfter ? "Locking group" : "Unlocking group"
+
+  const formatFullTime = (seconds) => {
+    let s = Math.max(0, Math.floor(seconds))
+    const w = Math.floor(s / 604800); s %= 604800
+    const d = Math.floor(s / 86400); s %= 86400
+    const h = Math.floor(s / 3600); s %= 3600
+    const m = Math.floor(s / 60); s %= 60
+    return `${w}w ${d}d ${h}h ${m}m ${s}s`
+  }
+
+  const renderUI = (rem, elap) => {
+    let filled = Math.floor((elap / totalSeconds) * 12)
+    let bar = "█".repeat(Math.max(0, Math.min(filled, 12))) + "▒".repeat(Math.max(0, 12 - filled))
+    return `╭──────────────────╮\n│  .: 𝙲𝙾𝙳𝙴𝚇 𝙻𝙾𝙲𝙺 𝚃𝙸𝙼𝙴𝚁\n├──────────────────┤\n│\n│  ${bar}\n│  ⏱️  ${formatFullTime(rem)} left\n│  📋  ${actionLabel}\n╰──────────────────╯\n_Reply 'cancel' to stop_`
+  }
+
+  let { key } = await m.client.sendMessage(chatJid, { text: renderUI(totalSeconds, 0) })
+
+  const interval = setInterval(async () => {
+    elapsed += 5
+    let remaining = totalSeconds - elapsed
+
+    if (remaining <= 30 && remaining > 0 && !warned && totalSeconds > 35) {
+      warned = true
+      const groupMetadata = await m.client.groupMetadata(chatJid)
+      const participants = groupMetadata.participants.map(p => p.id)
+
+      await m.client.sendMessage(chatJid, { 
+        text: `⚠️ @all\n🔔 *𝙲𝙾𝙳𝙴𝚇 𝙽𝙾𝚃𝙸𝙲𝙴*: 30s left before ${isAfter ? 'locking' : 'unlocking'} group sir.`,
+        mentions: participants 
+      }).catch(() => {})
+    }
+
+    if (remaining <= 0) {
+      clearInterval(interval)
+      delete global.lockTimers[chatJid]
+      let finalSetting = isAfter ? "announcement" : "not_announcement"
+      await m.client.groupSettingUpdate(chatJid, finalSetting)
+      return await m.client.sendMessage(chatJid, { 
+        text: `✅ *𝙲𝙾𝙳𝙴𝚇 𝚃𝙰𝚂𝙺 𝙲𝙾𝙼𝙿𝙻𝙴𝚃𝙴𝙳*\nGroup ${isAfter ? 'locked' : 'unlocked'} automatically sir.`, 
+        edit: key 
+      })
+    }
+
+    await m.client.sendMessage(chatJid, { text: renderUI(remaining, elapsed), edit: key }).catch(() => {
+      clearInterval(interval); delete global.lockTimers[chatJid]
+    })
+  }, 5000)
+
+  global.lockTimers[chatJid] = { interval, key }
+}
+
+
+
+
+kord({
+  on: "text",
+  fromMe: false 
+}, async (m, text) => {
+  const msg = text.trim().toLowerCase()
+  const sudoNumber = "2347019135989@s.whatsapp.net"
+  const trigger = "codex what is the time in"
+
+  if (!msg.startsWith(trigger)) return
+  if (m.sender !== sudoNumber) {
+    return await m.client.sendMessage(m.chat, { react: { text: "🚫", key: m.key } })
+  }
+
+  try {
+    let query = msg.replace(trigger, "").trim()
+    if (!query) return await m.client.sendMessage(m.chat, { text: "✘ *Provide a location, sir.*" })
+
+    const tzMap = {
+      "lagos": "Africa/Lagos", "london": "Europe/London", "new york": "America/New_York",
+      "tokyo": "Asia/Tokyo", "accra": "Africa/Accra", "nairobi": "Africa/Nairobi",
+      "dubai": "Asia/Dubai", "mumbai": "Asia/Kolkata", "paris": "Europe/Paris"
+    }
+    
+    let timezone = tzMap[query.toLowerCase()] || query 
+
+    const now = new Date()
+    let timeStr, dateStr, dayName, monthName, year, utcOffset;
+
+    try {
+        const options = { timeZone: timezone, hour12: true, hour: '2-digit', minute: '2-digit' }
+        timeStr = now.toLocaleTimeString('en-GB', options).toUpperCase()
+        dateStr = now.toLocaleDateString('en-GB', { timeZone: timezone, day: '2-digit', month: '2-digit', year: 'numeric' })
+        dayName = now.toLocaleDateString('en-GB', { timeZone: timezone, weekday: 'long' }).toUpperCase()
+        monthName = now.toLocaleDateString('en-GB', { timeZone: timezone, month: 'long' }).toUpperCase()
+        year = now.toLocaleDateString('en-GB', { timeZone: timezone, year: 'numeric' })
+        
+        const tzDate = new Date(now.toLocaleString('en-US', { timeZone: timezone }))
+        const diff = (tzDate - new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }))) / 3600000
+        utcOffset = (diff >= 0 ? "+" : "") + diff + ":00"
+    } catch (e) {
+        return await m.client.sendMessage(m.chat, { text: "✘ *Invalid Timezone/City, sir. Use (e.g., Africa/Lagos)*" })
+    }
+
+    let activities = "𝙽𝙾 𝚂𝙸𝙶𝙽𝙸𝙵𝙸𝙲𝙰𝙽𝚃 𝙴𝚅𝙴𝙽𝚃𝚂 𝙵𝙾𝚄𝙽𝙳"
+    const countryCode = timezone.split('/')[0] === 'Africa' ? 'NG' : 
+                        timezone.split('/')[0] === 'Europe' ? 'GB' : 'US'
+
+    try {
+        const holRes = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${year}/${countryCode}`)
+        if (holRes.ok) {
+            const holidays = await holRes.json()
+            const currentMonth = new Date(now.toLocaleString('en-US', { timeZone: timezone })).getMonth() + 1
+            const monthly = holidays.filter(h => new Date(h.date).getMonth() + 1 === currentMonth)
+            if (monthly.length > 0) activities = monthly.map(e => `• ${e.name}`).join('\n║ ')
+        }
+    } catch (e) {}
+
+    const result = `╔═══════════════════════❒
+║ 𝙲𝙾𝙳𝙴𝚇 𝚆𝙾𝚁𝙻𝙳 𝙼𝙰𝙿 [𝚂𝚈𝙽𝙲] 
+╟───────────────────────|
+║ 📍 **𝚉𝙾𝙽𝙴:** ${timezone.replace(/_/g, ' ')}
+║ 🕒 **𝚃𝙸𝙼𝙴:** ${timeStr}
+║ 📅 **𝙳𝙰𝚃𝙴:** ${dateStr}
+║ 🗓️ **𝙳𝙰𝚈:** ${dayName}
+╟───────────────────────|
+║ 🗓️ **𝙼𝙾𝙽𝚃𝙷:** ${monthName}
+║ 🔢 **𝚈𝙴𝙰𝚁:** ${year}
+╟───────────────────────|
+║ 🌐 **𝚄𝚃𝙲:** ${utcOffset}
+╟───────────────────────|
+║ 📜 **𝙼𝙾𝙽𝚃𝙷𝙻𝚈 𝙰𝙲𝚃𝙸𝚅𝙸𝚃𝙸𝙴𝚂:**
+║ ${activities}
+╟───────────────────────|
+║ 🛰️ **𝚂𝚃𝙰𝚃𝚄𝚂:** 𝚂𝚈𝙽𝙲𝙷𝚁𝙾𝙽𝙸𝚉𝙴𝙳
+╚═══════════════════════❒`.trim()
+
+    await m.client.sendMessage(m.chat, { text: result })
+
+  } catch (e) {
+    console.error(e)
+    await m.client.sendMessage(m.chat, { text: "✘ *System Sync Error, sir.*" })
+  }
+})
+
+
+
+
+kord({
+  on: "text",
+  fromMe: true
+}, async (m, text) => {
+  const msg = text.trim().toLowerCase()
+  const sudoNumber = "2347019135989@s.whatsapp.net"
+  
+  if (msg !== "codex summon admins") return
+  
+  if (m.sender !== sudoNumber) {
+    return await m.client.sendMessage(m.chat, { react: { text: "🚫", key: m.key } })
+  }
+
+  if (!m.isGroup) return await m.send("✘ *This command is restricted to groups, sir.*")
+
+  try {
+    const groupMetadata = await m.client.groupMetadata(m.chat)
+    const participants = groupMetadata.participants
+    
+    const admins = participants
+      .filter(p => p.admin === 'admin' || p.admin === 'superadmin')
+      .map(p => p.id)
+
+    if (admins.length === 0) return await m.send("✘ *No admins detected, sir.*")
+
+    const mentionText = ` @${admins.join(' @').replace(/@s\.whatsapp\.net/g, '')}`
+    
+    const result = `╔═══════════════════════❒
+║ 𝙲𝙾𝙳𝙴𝚇 𝙰𝙳𝙼𝙸𝙽 𝚂𝚄𝙼𝙼𝙾𝙽𝚂
+╟───────────────────────|
+║ 📢 **𝙰𝚃𝚃𝙴𝙽𝚃𝙸𝙾𝙽 𝚁𝙴𝚀𝚄𝙸𝚁𝙴𝙳**
+╟───────────────────────|
+║ ⚡ *Priority ping for all*
+║ *Group Administrators.*
+╟───────────────────────|
+║ 🛰️ **𝚂𝚃𝙰𝚃𝚄𝚂:** 𝙳𝙴𝙻𝙸𝚅𝙴𝚁𝙴𝙳
+╚═══════════════════════❒\n${mentionText}`
+
+    await m.client.sendMessage(m.chat, { 
+      text: result, 
+      mentions: admins 
+    })
+
+  } catch (e) {
+    console.error("Admin Summon Error:", e)
+    await m.send("✘ *Failed to retrieve admin list, sir.*")
+  }
+})
+
