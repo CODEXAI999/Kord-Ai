@@ -29,7 +29,7 @@ kord({
 }, async (m, text) => {
   try {
     var prompt = text || m.quoted?.text
-    if (!prompt) return await m.send("Hi!, What's Your Prompt?")
+    if (!prompt) return await m.send("Hi!, am codex how can i assist you today?")
     return await m.send(await chatWithAi(prompt, "openai"))
   } catch (e) {
     console.log("cmd error", e)
@@ -45,7 +45,7 @@ kord({
 }, async (m, text) => {
   try {
     var prompt = text || m.quoted?.text
-    if (!prompt) return await m.send("Hi!, What's Your Prompt?")
+    if (!prompt) return await m.send("Hi!, am codex how can i assist you today?")
     return await m.send(await chatWithAi(prompt, "openai-fast"))
   } catch (e) {
     console.log("cmd error", e)
@@ -54,14 +54,14 @@ kord({
 })
 
 kord({
-  cmd: "gemini",
+  cmd: "codex",
   desc: "chat with ai (gemini 2.5)",
   fromMe: wtype,
   type: "ai",
 }, async (m, text) => {
   try {
     var prompt = text || m.quoted?.text
-    if (!prompt) return await m.send("Hi!, What's Your Prompt?")
+    if (!prompt) return await m.send("Hi!, am codex how can i assist you today?")
     return await m.send(await chatWithAi(prompt, "gemini"))
   } catch (e) {
     console.log("cmd error", e)
@@ -77,7 +77,7 @@ kord({
 }, async (m, text) => {
   try {
     var prompt = text || m.quoted?.text
-    if (!prompt) return await m.send("Hi!, What's Your Prompt?")
+    if (!prompt) return await m.send("Hi!, Am codex and how can i help you today?")
     return await m.send(await chatWithAi(prompt, "gemini-search"))
   } catch (e) {
     console.log("cmd error", e)
@@ -93,7 +93,7 @@ kord({
 }, async (m, text) => {
   try {
     var prompt = text || m.quoted?.text
-    if (!prompt) return await m.send("Hi!, What's Your Prompt?")
+    if (!prompt) return await m.send("Hi!, am codex how can i assist you today?")
     return await m.send(await chatWithAi(prompt, "mistral"))
   } catch (e) {
     console.log("cmd error", e)
@@ -109,7 +109,7 @@ kord({
 }, async (m, text) => {
   try {
     var prompt = text || m.quoted?.text
-    if (!prompt) return await m.send("Hi!, What's Your Prompt?")
+    if (!prompt) return await m.send("Hi!,  Am codex what's Your Prompt?")
     return await m.send(await chatWithAi(prompt, "deepseek"))
   } catch (e) {
     console.log("cmd error", e)
@@ -125,7 +125,7 @@ kord({
 }, async (m, text) => {
   try {
     var prompt = text || m.quoted?.text
-    if (!prompt) return await m.send("Hi!, What's Your Prompt?")
+    if (!prompt) return await m.send("Hi!,  Am codex what's Your Prompt?")
     return await m.send(await chatWithAi(prompt, "openai-reasoning"))
   } catch (e) {
     console.log("cmd error", e)
@@ -157,7 +157,7 @@ kord({
 }, async (m, text) => {
   try {
     var prompt = text || m.quoted?.text
-    if (!prompt) return await m.send("Hi!, What's Your Prompt?")
+    if (!prompt) return await m.send("Hi!,  Am codex what's Your Prompt?")
     return await m.send(await chatWithAi(prompt, "roblox-rp"))
   } catch (e) {
     console.log("cmd error", e)
@@ -173,7 +173,7 @@ kord({
 }, async (m, text) => {
   try {
     var prompt = text || m.quoted?.text
-    if (!prompt) return await m.send("Hi!, What's Your Prompt?")
+    if (!prompt) return await m.send("Hi!, Am codex what's your prompt?")
     return await m.send(await chatWithAi(prompt, "bidara"))
   } catch (e) {
     console.log("cmd error", e)
