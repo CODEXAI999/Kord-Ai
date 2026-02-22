@@ -86,7 +86,7 @@ kord({
 })
 
 kord({
-  cmd: "mistral",
+  cmd: "codexstral",
   desc: "chat with ai (mistral small 3.2)",
   fromMe: wtype,
   type: "ai",
