@@ -22,7 +22,7 @@ const { kord,
 const axios = require('axios') 
 
 kord({
-  cmd: "openai",
+  cmd: "codexai",
   desc: "chat with ai (openai gpt-5 nano)",
   fromMe: wtype,
   type: "ai",
@@ -38,7 +38,7 @@ kord({
 })
 
 kord({
-  cmd: "gpt",
+  cmd: "codex1",
   desc: "chat with ai (openai fast)",
   fromMe: wtype,
   type: "ai",
@@ -70,7 +70,7 @@ kord({
 })
 
 kord({
-  cmd: "aisearch",
+  cmd: "codexsesrch",
   desc: "chat with ai (gemini with google search)",
   fromMe: wtype,
   type: "ai",
@@ -102,7 +102,7 @@ kord({
 })
 
 kord({
-  cmd: "deepseek",
+  cmd: "codexseek",
   desc: "chat with ai (deepseek v3.1 reasoning)",
   fromMe: wtype,
   type: "ai",
@@ -134,7 +134,7 @@ kord({
 })
 
 kord({
-  cmd: "coder",
+  cmd: "codexcoder",
   desc: "chat with ai (qwen coder)",
   fromMe: wtype,
   type: "ai",
@@ -150,7 +150,7 @@ kord({
 })
 
 kord({
-  cmd: "llama",
+  cmd: "codexv1",
   desc: "chat with ai (llama 3.1)",
   fromMe: wtype,
   type: "ai",
@@ -166,7 +166,7 @@ kord({
 })
 
 kord({
-  cmd: "bidara",
+  cmd: "codexera",
   desc: "chat with ai (nasa biomimetic designer)",
   fromMe: wtype,
   type: "ai",
