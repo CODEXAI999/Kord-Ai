@@ -64,6 +64,7 @@ kord({
       
       let menu = `╔═══❍ ${config().BOT_NAME} ❍═══❒
 ║╭───────────────◆
+║│ ❍ DEV/OWNER: CODEX
 ║│ ❍ Category: ${actualType.toUpperCase()}
 ║│ ❍ Commands: ${types[actualType].length}
 ║│ ❍ Prefix: ${prefix}
@@ -90,6 +91,7 @@ Tip: Use ${prefix}menu to see all categories`
       const styledBody = await changeFont(bodyContent, getRandomFont())
       const final = `╔═══❍ ${config().BOT_NAME} ❍═══❒
 ║╭───────────────◆
+║│ ❍ DEV/OWNER: CODEX
 ║│ ❍ Category: ${actualType.toUpperCase()}
 ║│ ❍ Commands: ${types[actualType].length}
 ║│ ❍ Prefix: ${prefix}
@@ -108,6 +110,7 @@ ${styledBody}`
     
     let menu = `╔═══❍ ${config().BOT_NAME} ❍═══❒
 ║╭───────────────◆
+║│ ❍ DEV/OWNER: CODEX
 ║│ ❍ Owner: ${config().OWNER_NAME}
 ║│ ❍ User: ${m.pushName}
 ║│ ❍ Plugins: ${commands.length}
