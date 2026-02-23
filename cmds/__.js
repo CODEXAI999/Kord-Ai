@@ -58,37 +58,43 @@ kord({
       
       const at = await changeFont(actualType.toUpperCase(), "monospace")
       const cmdList = types[actualType].map(cmd => 
-        `│ ${prefix}${cmd.replace(/[^a-zA-Z0-9-+]/g, "")}`
+        `║│ ❍ ${prefix}${cmd.replace(/[^a-zA-Z0-9-+]/g, "")}`
       ).join('\n')
       const formattedCmds = await changeFont(cmdList, getRandomFont())
       
-      let menu = `\`\`\`┌────═━┈ ${config().BOT_NAME} ┈━═────┐
- ✇ ▸ Category: ${actualType.toUpperCase()}
- ✇ ▸ Commands: ${types[actualType].length}
- ✇ ▸ Prefix: ${prefix}
-└──────═━┈┈━═──────┘\`\`\`
+      let menu = `╔═══❍ ${config().BOT_NAME} ❍═══❒
+║╭───────────────◆
+║│ ❍ Category: ${actualType.toUpperCase()}
+║│ ❍ Commands: ${types[actualType].length}
+║│ ❍ Prefix: ${prefix}
+║╰───────────────◆
+╚════════════════❒
 ${readmore}
 
-     ┏ ${at} ┓ 
-┍   ─┉─ • ─┉─    ┑ 
+╔═══〔❍${at}❍〕═══❒
+║╭───────────────◆
 ${formattedCmds}
-┕    ─┉─ • ─┉─   ┙ 
+║╰───────────────◆
+╚══════════════════❒
 
 Tip: Use ${prefix}menu to see all categories`
       
-      const bodyContent = `     ┏ ${at} ┓ 
-┍   ─┉─ • ─┉─    ┑ 
+      const bodyContent = `╔═══〔❍${at}❍〕═══❒
+║╭───────────────◆
 ${formattedCmds}
-┕    ─┉─ • ─┉─   ┙ 
+║╰───────────────◆
+╚══════════════════❒
 
 Tip: Use ${prefix}menu to see all categories`
       
       const styledBody = await changeFont(bodyContent, getRandomFont())
-      const final = `\`\`\`┌────═━┈ ${config().BOT_NAME} ┈━═────┐
- ✇ ▸ Category: ${actualType.toUpperCase()}
- ✇ ▸ Commands: ${types[actualType].length}
- ✇ ▸ Prefix: ${prefix}
-└────────═━┈┈━═────────┘\`\`\`
+      const final = `╔═══❍ ${config().BOT_NAME} ❍═══❒
+║╭───────────────◆
+║│ ❍ Category: ${actualType.toUpperCase()}
+║│ ❍ Commands: ${types[actualType].length}
+║│ ❍ Prefix: ${prefix}
+║╰───────────────◆
+╚════════════════❒
 ${readmore}
 
 ${styledBody}`
@@ -100,30 +106,33 @@ ${styledBody}`
     const uptime = await secondsToHms(process.uptime())
     const memoryUsage = format(os.totalmem() - os.freemem())
     
-    let menu = `\`\`\`┌────═━┈ ${config().BOT_NAME} ┈━═────┐
- ✇ ▸ Owner: ${config().OWNER_NAME}
- ✇ ▸ User: ${m.pushName}
- ✇ ▸ Plugins: ${commands.length}
- ✇ ▸ Uptime: ${uptime}
- ✇ ▸ Memory: ${memoryUsage}
- ✇ ▸ Version: v${version}
- ✇ ▸ Platform: ${m.client.platform()}
-└───────═━┈┈━═──────┘\`\`\`
+    let menu = `╔═══❍ ${config().BOT_NAME} ❍═══❒
+║╭───────────────◆
+║│ ❍ Owner: ${config().OWNER_NAME}
+║│ ❍ User: ${m.pushName}
+║│ ❍ Plugins: ${commands.length}
+║│ ❍ Uptime: ${uptime}
+║│ ❍ Memory: ${memoryUsage}
+║│ ❍ Version: v${version}
+║│ ❍ Platform: ${m.client.platform()}
+║╰───────────────◆
+╚════════════════❒
 ${readmore}
 
 `
 
     const categoryList = Object.keys(types).map(async (type) => {
       const cmdList = types[type].map(cmd => 
-        `│ ${prefix}${cmd.replace(/[^a-zA-Z0-9-+]/g, "")}`
+        `║│ ❍ ${prefix}${cmd.replace(/[^a-zA-Z0-9-+]/g, "")}`
       ).join('\n')
       const formattedCmds = await changeFont(cmdList, getRandomFont())
       const tty = await changeFont(type.toUpperCase(), "monospace")
       
-      return ` ┏ ${tty} ┓
-┍   ─┉─ • ─┉─    ┑ 
+      return `╔═══〔❍${tty}❍〕═══❒
+║╭───────────────◆
 ${formattedCmds}
-┕    ─┉─ • ─┉─   ┙ `
+║╰───────────────◆
+╚══════════════════❒`
     })
 
     const resolvedCategoryList = await Promise.all(categoryList)
@@ -144,3 +153,5 @@ ${formattedCmds}
     return await m.sendErr(e)
   }
 })
+
+
