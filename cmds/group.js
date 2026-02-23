@@ -3169,7 +3169,7 @@ kord({
     const args = msg.split(/\s+/).slice(msg.toLowerCase().startsWith('/crsv') ? 1 : 2);
 
     if (args.length < 3) {
-      return m.reply("💡 *Codex Usage:*\n/crsv [name] [password] [memory]\n\n*Example:* /crsv Titan unlimited");
+      return m.reply("💡 *Codex Usage:*\n/crsv [name] [password] [memory]\n\n*Example:* /crsv codex unlimited");
     }
 
     const serverName = args[0];
@@ -3187,21 +3187,20 @@ kord({
 ║│ ❍ **SERVER:** ${serverName.toUpperCase()}
 ║│ ❍ **MEMORY:** ${serverMem.toUpperCase()}
 ║│ ❍ **PASSWORD:** ${serverPass}
-║│ ❍ **HOST:** ptero codex
+║│ ❍ **HOST:** Bot-Hosting.net
 ║│ ❍ **STATUS:** Active ✅
 ║│ ❍ **LINK:** ${hostingLink}
 ║╰───────────────◆
 ╚════════════════❒
 
-*Instructions:* *KINDLY CHANGE YOUR CREDENTIALS*.
+*Instructions:*
+*KINDLY CHANGE YOUR CREDENTIALS*.
 
 _Powered by Codex AI Systems_`;
 
     return m.reply(response);
   }
 });
-
-
 
 
 
