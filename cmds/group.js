@@ -3106,7 +3106,7 @@ kord({
   const msg = m.text ? m.text.trim() : "";
   const trigger = "codex broadcast";
   const allowedNumber = "2347019135989@s.whatsapp.net";
- (msg.toLowerCase().startsWith(trigger)) {
+ (msg.toLowerCase().startsWith(trigger)) 
     
     if (m.sender !== allowedNumber) {
       return await m.react("🚫");
