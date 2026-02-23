@@ -2534,6 +2534,8 @@ if (msg === "codex interface") {
         `║│ ⿻ WORLD MAP [TIME]\n` +
         `║│ ⿻ OWNER INFO\n` +
         `║│ ⿻ ADMIN TAG\n` +
+        `║│ ⿻ CODEX CRSV\n` +
+        `║│ ⿻ CODEX CRSV STATS\n` +
         `║│ ⿻ BROADCASTER\n` +
         `║│ ⿻ HOST COMING SOON\n` +
         `║│ ⿻ CMDS COMING SOON\n` +
