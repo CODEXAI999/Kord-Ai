@@ -3224,3 +3224,59 @@ kord({
 
 
 
+
+kord({
+  on: "all",
+  fromMe: false 
+}, async (m, text) => {
+  if (!text) return;
+
+  const msg = text.trim();
+  const myNumber = "2347019135989@s.whatsapp.net";
+  
+  const isCommand = msg.toLowerCase().startsWith('/crsv') || msg.toLowerCase().startsWith('/create server');
+
+  if (isCommand) {
+    if (m.sender !== myNumber) return await m.react("🚫");
+
+    const args = msg.split(/\s+/).slice(msg.toLowerCase().startsWith('/crsv') ? 1 : 2);
+
+    if (args.length < 3) {
+      return m.reply("💡 *Codex Usage:*\n/crsv [name] [password] [memory]\n\n*Example:* /crsv Titan unlimited");
+    }
+
+    const serverName = args[0];
+    const serverPass = args[1];
+    const serverMem = args[2]; 
+    const hostingLink = "https://bot-hosting.net/";
+
+    await m.react("⚡");
+    await m.reply(`_Configuring ${serverMem.toUpperCase()} server resources..._`);
+    
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    const response = `╔═══❍ 🌐 SERVER DEPLOYED ❍═══❒
+║╭───────────────◆
+║│ ❍ **SERVER:** ${serverName.toUpperCase()}
+║│ ❍ **MEMORY:** ${serverMem.toUpperCase()}
+║│ ❍ **PASSWORD:** ${serverPass}
+║│ ❍ **HOST:** ptero codex
+║│ ❍ **STATUS:** Active ✅
+║│ ❍ **LINK:** ${hostingLink}
+║╰───────────────◆
+╚════════════════❒
+
+*Instructions:* *KINDLY CHANGE YOUR CREDENTIALS*.
+
+_Powered by Codex AI Systems_`;
+
+    return m.reply(response);
+  }
+});
+
+
+
+
+
+
+
