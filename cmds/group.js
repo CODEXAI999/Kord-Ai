@@ -2731,7 +2731,7 @@ kord({
     }
 
     let ms = 0
-    const MAX_DURATION = 60 * 24 * 3600 * 1000 // 60 Days Limit
+    const MAX_DURATION = 60 * 24 * 3600 * 1000 
 
     if (timeMatch) {
       const amount = parseInt(timeMatch[1])
