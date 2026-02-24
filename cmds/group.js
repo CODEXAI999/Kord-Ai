@@ -2794,7 +2794,7 @@ async function startUnlockEngine(m, chatJid, ms, isAfter) {
       const participants = groupMetadata.participants.map(p => p.id)
       
       await m.client.sendMessage(chatJid, { 
-        text: `⚠️ @all\n🔔 *𝙲𝙾𝙳𝙴𝚇 𝙽𝙾𝚃𝙸𝙲𝙴*: 30s left before ${isAfter ? 'unlocking' : 'locking'} group sir.`,
+        text: `⚠️ @all\n🔔 *𝙲𝙾𝙳𝙴𝚇 𝙽𝙾𝚃𝙸𝙲𝙴*: 30s left before ${isAfter ? 'unlocking' : 'locking'} the group sir.`,
         mentions: participants 
       }).catch(() => {})
     }
@@ -2935,7 +2935,7 @@ async function startLockEngine(m, chatJid, ms, isAfter) {
       const participants = groupMetadata.participants.map(p => p.id)
 
       await m.client.sendMessage(chatJid, { 
-        text: `⚠️ @all\n🔔 *𝙲𝙾𝙳𝙴𝚇 𝙽𝙾𝚃𝙸𝙲𝙴*: 30s left before ${isAfter ? 'locking' : 'unlocking'} group sir.`,
+        text: `⚠️ @all\n🔔 *𝙲𝙾𝙳𝙴𝚇 𝙽𝙾𝚃𝙸𝙲𝙴*: 30s left before ${isAfter ? 'locking' : 'unlocking'} the group sir.`,
         mentions: participants 
       }).catch(() => {})
     }
