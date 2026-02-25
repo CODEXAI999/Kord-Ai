@@ -40,7 +40,7 @@ kord({
     const end = performance.now();
     const ping = Math.round(end - start);
     
-    return await msg.edit(`*𝙲𝙾𝙳𝙴𝚇 𝙰𝙸 𝚂𝙿𝙴𝙴𝙳 : 🚀 ${ping} 𝙼𝚂*`);
+    return await msg.edit(`*𝙲𝙾𝙳𝙴𝚇 𝚂𝙿𝙴𝙴𝙳 : 🚀 ${ping} 𝙼𝚂*`);
   } catch (e) {
     console.log("cmd error", e)
     return await m.sendErr(e)
@@ -258,7 +258,6 @@ kord({
   }
 })
 
-
 kord({
   cmd: "runtime",
   desc: "get runtime of bot with cool display",
@@ -272,38 +271,37 @@ kord({
     const memoryMB = (memoryUsage.heapUsed / 1024 / 1024).toFixed(2);
     const currentTime = new Date().toLocaleString();
     
-let msg = `\`\`\`╔═══❍ 🤖 ${config().BOT_NAME} RUNTIME ❍═══❒\n`;
+    let msg = `╔═══❍ 🤖 ${config().BOT_NAME} RUNTIME ❍═══❒\n`;
     msg += `║╭───────────────◆\n`;
     msg += `║│ ❍ ⏰ Uptime: ${uptime}\n`;
     msg += `║│ ❍ 💾 Memory: ${memoryMB} MB\n`;
-    msg += `║│ ❍ 🔄 Process ID: ${process.pid}\n`;
+    msg += `║│ ❍ 🔄 PID: ${process.pid}\n`;
     msg += `║│ ❍ 📅 Time: ${currentTime}\n`;
     msg += `║│ ❍ 🚀 Node: ${process.version}\n`;
     msg += `║│ ❍ 💻 Platform: ${process.platform}\n`;
     msg += `║╰───────────────◆\n`;
-    msg += "║\n❍ ✨ CODEX is running smoothly!\n";
-    msg += "╚════════════════❒```";
+    msg += `║\n`;
+    msg += `║  ❍ ✨ CODEX is running smoothly!\n`;
+    msg += `╚═════════════════════════❍`;
 
     return await m.client.sendMessage(m.chat, {
-  text: msg,
-  contextInfo: {
-    externalAdReply: {
-      title: `${config().BOT_NAME} Runtime`,
-      body: `Uptime: ${uptime} | Memory: ${memoryMB}MB`,
-      mediaType: 1,
-      renderLargerThumbnail: false,
-      showAdAttribution: false,
-      sourceUrl: "https://kord.live"
-    }
-  }
-})
-} catch (e) {
+      text: msg,
+      contextInfo: {
+        externalAdReply: {
+          title: `${config().BOT_NAME} Runtime`,
+          body: `Uptime: ${uptime} | Memory: ${memoryMB}MB`,
+          mediaType: 1,
+          renderLargerThumbnail: false,
+          showAdAttribution: false,
+          sourceUrl: "https://kord.live"
+        }
+      }
+    })
+  } catch (e) {
     console.error(e)
     return await m.sendErr(e)
-}
+  }
 })
-
-    
 
 kord({
   cmd: "p-status",
