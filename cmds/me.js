@@ -272,15 +272,17 @@ kord({
     const memoryMB = (memoryUsage.heapUsed / 1024 / 1024).toFixed(2);
     const currentTime = new Date().toLocaleString();
     
-    let msg = `\`\`\`╔════════════════════════╗\n╠ 🤖 ${config().BOT_NAME} RUNTIME Status     ╣\n╠════════════════════════╝\n`
-    msg += `╠ ⏰ Uptime: ${uptime}\n`;
-    msg += `╠ 💾 Memory: ${memoryMB} MB\n`;
-    msg += `╠ 🔄 Process ID: ${process.pid}\n`;
-    msg += `╠ 📅 Time: ${currentTime}\n`;
-    msg += `╠ 🚀 Node: ${process.version}\n`;
-    msg += `╠ 💻 Platform: ${process.platform}\n`;
-    msg += "╠\n╠ ✨ Bot is running smoothly!\n";
-    msg += "╚════════════════════════```";
+let msg = `\`\`\`╔═══❍ 🤖 ${config().BOT_NAME} RUNTIME ❍═══❒\n`;
+    msg += `║╭───────────────◆\n`;
+    msg += `║│ ❍ ⏰ Uptime: ${uptime}\n`;
+    msg += `║│ ❍ 💾 Memory: ${memoryMB} MB\n`;
+    msg += `║│ ❍ 🔄 Process ID: ${process.pid}\n`;
+    msg += `║│ ❍ 📅 Time: ${currentTime}\n`;
+    msg += `║│ ❍ 🚀 Node: ${process.version}\n`;
+    msg += `║│ ❍ 💻 Platform: ${process.platform}\n`;
+    msg += `║╰───────────────◆\n`;
+    msg += "║\n❍ ✨ CODEX is running smoothly!\n";
+    msg += "╚════════════════❒```";
 
     return await m.client.sendMessage(m.chat, {
   text: msg,
