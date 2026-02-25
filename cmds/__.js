@@ -114,7 +114,6 @@ ${styledBody}`
 ║│ ❍ Owner: ${config().OWNER_NAME}
 ║│ ❍ User: ${m.pushName}
 ║│ ❍ Plugins: ${commands.length}
-║│ ❍ Uptime: ${uptime}
 ║│ ❍ Memory: ${memoryUsage}
 ║│ ❍ Version: v${version}
 ║│ ❍ Platform: ${m.client.platform()}
