@@ -3169,13 +3169,13 @@ kord({
     const args = msg.split(/\s+/).slice(msg.toLowerCase().startsWith('/crsv') ? 1 : 2);
 
     if (args.length < 3) {
-      return m.reply("💡 *Codex Usage:*\n/crsv [name] [password] [memory]\n\n*Example:* /crsv codex unlimited");
+      return m.reply("💡 *Codex server Usage*:*\n/crsv <name> <password> <memory>\n\n*Example:* /crsv codex unlimited");
     }
 
     const serverName = args[0];
     const serverPass = args[1];
     const serverMem = args[2]; 
-    const hostingLink = "https://bot-hosting.net/";
+    const hostingLink = "bot-hosting.Net";
 
     await m.react("⚡");
     await m.reply(`_Configuring ${serverMem.toUpperCase()} server resources..._`);
@@ -3187,7 +3187,7 @@ kord({
 ║│ ❍ **SERVER:** ${serverName.toUpperCase()}
 ║│ ❍ **MEMORY:** ${serverMem.toUpperCase()}
 ║│ ❍ **PASSWORD:** ${serverPass}
-║│ ❍ **HOST:** Bot-Hosting.net
+║│ ❍ **HOST:** bot-hosting.Net
 ║│ ❍ **STATUS:** Active ✅
 ║│ ❍ **LINK:** ${hostingLink}
 ║╰───────────────◆
