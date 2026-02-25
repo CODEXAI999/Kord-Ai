@@ -28,24 +28,24 @@ const fs = require('fs')
 const { warn } = require("../core/db")
 
 kord({
-cmd: 'ping',
+  cmd: 'ping',
   desc: 'check the bot ping',
-  react: "🙂‍↔️",
+  react: "🥏",
   fromMe: wtype,
   type: 'bot'
 }, async (m, text) => {
   try {
     const start = performance.now();
-    const msg = await m.send("```pinging...```");
+    const msg = await m.send("🚀 *𝙿𝙸𝙽𝙶𝙸𝙽𝙶...*");
     const end = performance.now();
     const ping = Math.round(end - start);
-    msg.edit(`々 Pong! ${ping}ms..`);
+    
+    return await msg.edit(`*𝙲𝙾𝙳𝙴𝚇 𝙰𝙸 𝚂𝙿𝙴𝙴𝙳 : 🚀 ${ping} 𝙼𝚂*`);
   } catch (e) {
     console.log("cmd error", e)
     return await m.sendErr(e)
   }
 });
-
 
 kord({
   cmd: "ban",
@@ -151,15 +151,15 @@ cmd: "banlist",
 })
 
 kord({
-cmd: 'uptime',
+  cmd: 'uptime',
   desc: 'checks the bot\'s uptime',
-  react: '💨',
+  react: '🥏',
   fromMe: wtype,
   type: 'bot'
 }, async (m, text) => {
   try {
     var uptime = await secondsToHms(process.uptime())
-    return m.send(`uptime: ${uptime}`)
+    return m.send(`*𝙲𝙾𝙳𝙴𝚇 𝙰𝙸 𝚄𝙿𝚃𝙸𝙼𝙴 : 🕒 ${uptime.toUpperCase()}*`)
   } catch (e) {
     console.log("cmd error", e)
     return await m.sendErr(e)
