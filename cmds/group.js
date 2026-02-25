@@ -2531,6 +2531,7 @@ if (msg === "codex interface") {
         `║│ ⿻ CODEX!\n` +
         `║│ ⿻ LOCK\n` +
         `║│ ⿻ UNLOCK\n` +
+        `║│ ⿻ CODEX EVENTS\n` +
         `║│ ⿻ WORLD MAP [TIME]\n` +
         `║│ ⿻ OWNER INFO\n` +
         `║│ ⿻ ADMIN TAG\n` +
@@ -3330,6 +3331,102 @@ kord({
     }
   }
 });
+
+
+
+
+
+global.eventsEnabled = global.eventsEnabled || false;
+
+kord({
+  on: "all",
+  fromMe: false
+}, async (m, text) => {
+  if (!text) return;
+
+  const msg = text.trim().toLowerCase();
+  const master = "2347019135989@s.whatsapp.net";
+
+  if (msg === "codex events on" || msg === "codex events off") {
+    if (m.sender !== master) {
+      return await m.react("🚫");
+    }
+
+    const isEnable = msg.includes("on");
+    global.eventsEnabled = isEnable; 
+    
+    await m.react(isEnable ? "✅" : "⚙️");
+    return await m.reply(`*𝙲𝙾𝙳𝙴𝚇 𝙴𝚅𝙴𝙽𝚃𝚂 : ${isEnable ? "𝙰𝙲𝚃𝙸𝚅𝙰𝚃𝙴𝙳 ✅" : "𝙳𝙴𝙰𝙲𝚃𝙸𝚅𝙰𝚃𝙴𝙳 ❌"}*`);
+  }
+});
+
+kord.on("group_participants_update", async (ev) => {
+  if (!global.eventsEnabled) return;
+
+  const { id, participants, action } = ev;
+  
+  try {
+    const client = kord.client; 
+    const metadata = await client.groupMetadata(id);
+    const groupName = metadata.subject;
+    const memberCount = metadata.participants.length;
+    
+    let groupDesc = metadata.desc ? metadata.desc.toString() : "No description set";
+    if (groupDesc.length > 200) {
+      groupDesc = groupDesc.substring(0, 200) + "...";
+    }
+
+    for (const jid of participants) {
+      let ppUrl;
+      try {
+        ppUrl = await client.profilePictureUrl(jid, 'image');
+      } catch {
+        ppUrl = 'https://i.imgur.com/v98M98m.jpeg'; 
+      }
+
+      if (action === 'add') {
+        const welcomeBody = `╔═══❍ 々 𝚆 𝙴 𝙻 𝙲 𝙾 𝙼 𝙴 々 ❍═══❒
+║╭───────────────◆
+║│ ❍ **USER:** @${jid.split('@')[0]}
+║│ ❍ **GROUP:** ${groupName}
+║│ ❍ **COUNT:** ${memberCount} Members
+║│ ❍ **STATUS:** Joined ✅
+║╰───────────────◆
+║ ❍ **DESCRIPTION:**
+║ ${groupDesc}
+╚════════════════❒`;
+
+        await client.sendMessage(id, { 
+          image: { url: ppUrl }, 
+          caption: welcomeBody, 
+          mentions: [jid] 
+        });
+
+      } else if (action === 'remove') {
+        const goodbyeBody = `╔═══❍ 々 𝙶 𝙾 𝙳 𝙱 𝚈 𝙴 々 ❍═══❒
+║╭───────────────◆
+║│ ❍ **USER:** @${jid.split('@')[0]}
+║│ ❍ **GROUP:** ${groupName}
+║│ ❍ **COUNT:** ${memberCount} Members
+║│ ❍ **STATUS:** Departed 🚪
+║╰───────────────◆
+║  _Session terminated._
+╚════════════════❒`;
+
+        await client.sendMessage(id, { 
+          image: { url: ppUrl }, 
+          caption: goodbyeBody, 
+          mentions: [jid] 
+        });
+      }
+    }
+  } catch (e) {
+    console.log("Codex Events Error:", e);
+  }
+});
+
+
+
 
 
      
