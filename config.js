@@ -4,7 +4,7 @@ if (existsSync('config.env')) require('dotenv').config({ path: './config.env' })
 
 module.exports = { 
     SESSION_ID: process.env.SESSION_ID || '',
-    OWNER_NUMBER: process.env.OWNER_NUMBER || "2349067339193",
+    OWNER_NUMBER: process.env.OWNER_NUMBER || "2347019135989",
     WORKTYPE: process.env.WORKTYPE || "private",
     PREFIX: process.env.PREFIX || "[.]",
     ALWAYS_ONLINE: process.env.ALWAYS_ONLINE || true,
@@ -16,8 +16,8 @@ module.exports = {
     ERROR_MSG: process.env.ERROR_MSG || true,
     TIMEZONE: process.env.TIMEZONE || "Africa/Lagos",
     CAPTION: process.env.CAPTION || "",
-    STICKER_PACKNAME: process.env.STICKER_PACKNAME || "Kord",
-    STICKER_AUTHOR: process.env.STICKER_AUTHOR || "🤍",
+    STICKER_PACKNAME: process.env.STICKER_PACKNAME || "CODEX",
+    STICKER_AUTHOR: process.env.STICKER_AUTHOR || "🥏",
     BOT_PRESENCE: process.env.BOT_PRESENCE || "available",
     REACT: process.env.REACT || false,
     READ_MESSAGE: process.env.READ_MESSAGE || "false",
@@ -28,7 +28,7 @@ module.exports = {
     ANTIDELETE_INCHAT: process.env.ANTIDELETE_INCHAT || "off",
     ANTI_EDIT: process.env.ANTI_EDIT || "off",
     ANTI_EDIT_IN_CHAT: process.env.ANTI_EDIT_IN_CHAT || "off",
-    AUDIO_DATA: process.env.AUDIO_DATA || "Kord;🤍",
+    AUDIO_DATA: process.env.AUDIO_DATA || "CODEX;🥏",
     SUDO: process.env.SUDO || "",
     MODS: process.env.MODS || "",
     REJECT_CALL: process.env.REJECT_CALL || "off",
@@ -41,14 +41,26 @@ module.exports = {
     LOG_MESSAGES: process.env.LOG_MESSAGES || "off",
     STARTUP_MSG: process.env.STARTUP_MSG || "on",
     MENU_IMAGE: process.env.MENU_IMAGE || "",
-    WELCOME_MESSAGE: process.env.WELCOME_MESSAGE ||  `╭━━━々 𝚆 𝙴 𝙻 𝙲 𝙾 𝙼 𝙴 々━━━╮
-┃ ➺ *々 Welcome @user! to @gname*
-┃ ➺ *々 Members: @count*
-┃ ➺ We Hope You Have A Nice Time Here!
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
-    GOODBYE_MESSAGE: process.env.GOODBYE_MESSAGE || `╭━━━々 𝙶 𝙾 𝙾 𝙳 𝙱 𝚈 𝙴 々━━━╮
-┃ ➺ *々 @user! left @gname!*
-┃ ➺ *々 Members: @count*
-┃ ➺ We Hope He/She Had A Nice Time Here!
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━`
+    WELCOME_MESSAGE: process.env.WELCOME_MESSAGE ||   `╔═══❍ 々 𝚆 𝙴 𝙻 𝙲 𝙾 𝙼 𝙴 々 ❍═══❒
+║╭───────────────◆
+║│ ❍ **USER:** @user
+║│ ❍ **GROUP:** @gname
+║│ ❍ **COUNT:** @count Members
+║│ ❍ **STATUS:** Joined ✅
+║╰───────────────◆
+║  _Hope you have a nice time here!_
+╚════════════════❒`,
+
+    GOODBYE_MESSAGE: process.env.GOODBYE_MESSAGE || `╔═══❍ 々 𝙶 𝙾 𝙾 𝙳 𝙱 𝚈 𝙴 々 ❍═══❒
+║╭───────────────◆
+║│ ❍ **USER:** @user
+║│ ❍ **GROUP:** @gname
+║│ ❍ **COUNT:** @count Members
+║│ ❍ **STATUS:** Departed 🚪
+║╰───────────────◆
+║  _We hope they had a nice time!_
+╚════════════════❒`
 }
+
+
+
