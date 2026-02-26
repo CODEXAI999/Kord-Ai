@@ -2530,6 +2530,8 @@ if (msg === "codex interface") {
         `║│ ⿻ YO\n` +
         `║│ ⿻ CODEX!\n` +
         `║│ ⿻ LOCK\n` +
+        `║│ ⿻ CODEX FONT\n` +
+        `║│ ⿻ INSPECTOR CODEX\n` +
         `║│ ⿻ UNLOCK\n` +
         `║│ ⿻ CODEX EVENTS\n` +
         `║│ ⿻ WORLD MAP [TIME]\n` +
@@ -3500,9 +3502,92 @@ kord({
 
 
 
+const FONT_MAPS = {
+    "1": "abcdeғgнijĸlмnopqrѕтυvwхyzABCDEFGнIJKLMNOᴘQRЅтUVWXYZ0123456789",
+    "2": "ɐqɔpǝɟƃɥᴉɾʞlɯuodbɹsʇnʌʍxʎz∀ᗺƆᗡƎℲפHIſʞ˥WNOԀΌᴚS┴∩ΛMX⅄Z0123456789",
+    "17": "ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ",
+    "18": "αв¢∂єƒgнιנкℓмησρqяѕтυνωχуzΔBCDΣFGHIJKLMNΘPQRЅTUVWXYZ",
+    "22": "𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙",
+    "26": "𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉",
+    "49": "𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ",
+    "50": "𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛\u1D560𝖝𝖞𝖟𝕬𝕭𝕮𝕯𝕰𝕱𝔾𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅"
+};
 
+Kord({
+  on: "all",
+  fromMe: false 
+}, async (m, { sock }) => {
+  if (!m.body) return
+  const ownerNumber = "2347019135989@s.whatsapp.net"
+  const msg = m.body.trim()
+  const lowMsg = msg.toLowerCase()
 
-     
+  if (lowMsg === "codex show me your fonts") {
+    if (m.sender !== ownerNumber) {
+        return await sock.sendMessage(m.chat, { react: { text: "🚫", key: m.key } })
+    }
 
+    let menu = `╔═══❍ **CODEX AI** ❍═══❒\n`
+    menu += `║╭───────────────◆\n`
+    menu += `║│ ❍ *CODEX FONTS*❍ 59 Styles\n`
+    menu += `║╰───────────────◆\n`
+    menu += `╚════════════════❒\n\n`
 
+    menu += `╔═══〔❍ **FANCY TEXT** ❍〕═══❒\n`
+    menu += `║╭───────────────◆\n`
+    
+    for (let i = 1; i <= 59; i++) {
+        let preview = applyCodexFont("CODEX-AI", i);
+        menu += `║│ ❍ ${i} ${preview}\n`;
+    }
+    
+    menu += `║╰───────────────◆\n`
+    menu += `╚══════════════════❒\n\n`
+    menu += `✓ 𝚂𝚈𝚂𝚃𝙴𝙼 𝙰𝙻𝙸𝚅𝙴 & 𝚂𝚈𝙽𝙲𝙷𝚁𝙾𝙽𝙸𝚉𝙴𝙳`
 
+    return await sock.sendMessage(m.chat, { text: menu }, { quoted: m })
+  }
+
+  const chooseMatch = lowMsg.match(/^codex\s+let\s+me\s+choose\s+(\d+)\s+(.+)/i);
+  
+  if (chooseMatch) {
+    if (m.sender !== ownerNumber) return
+    
+    const fontIndex = parseInt(chooseMatch[1]);
+    const textToStyle = chooseMatch[2];
+
+    if (fontIndex < 1 || fontIndex > 59) {
+        return m.reply("❌ Invalid font number. Choose 1 to 59.");
+    }
+
+    const result = applyCodexFont(textToStyle, fontIndex);
+    return await sock.sendMessage(m.chat, { text: result }, { quoted: m });
+  }
+})
+
+function applyCodexFont(text, index) {
+    const abc = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    
+    if (index === 3) return text.split("").map(c => c + "⃣").join(" ");
+    if (index === 4) return text.split("").map(c => c + "⃞").join(" ");
+    if (index === 6) return text.split("").map(c => c + "\u0338").join(""); 
+    if (index === 8) return text.split("").map(c => c + "\u0336").join(""); 
+    if (index === 11) return text.split("").map(c => c + "\u0332").join("");
+    if (index === 13) return text.split("").map(c => c + "♥").join("");
+    
+    if (index === 56) return text.toUpperCase().replace(/C/g, '𝛫').replace(/O/g, '𝛩').replace(/D/g, '𝛥').replace(/E/g, '𝐸').replace(/X/g, '𝛸').replace(/A/g, '𝛥').replace(/I/g, '𝛪');
+    if (index === 57) return text.toUpperCase().replace(/C/g, '𝞙').replace(/O/g, '𝞗').replace(/D/g, '𝞓').replace(/E/g, '𝞢').replace(/X/g, '𝞫').replace(/A/g, '𝞓').replace(/I/g, '𝞘');
+    if (index === 58) return text.toUpperCase().replace(/C/g, '𝐂').replace(/O/g, '𝚯').replace(/D/g, '𝐃').replace(/E/g, '𝐄').replace(/X/g, '𝐗').replace(/A/g, '𝚫').replace(/I/g, '𝚰');
+    if (index === 59) return text.toUpperCase().replace(/C/g, 'Ꮶ').replace(/O/g, 'ᝪ').replace(/D/g, 'ᗞ').replace(/E/g, 'ᗴ').replace(/X/g, 'Ꮖ').replace(/A/g, 'ᗩ').replace(/I/g, 'Ꮖ');
+
+    const selectedMap = FONT_MAPS[index.toString()];
+    if (selectedMap) {
+        const styledChars = [...selectedMap];
+        return [...text].map(char => {
+            const i = abc.indexOf(char);
+            return (i !== -1 && styledChars[i]) ? styledChars[i] : char;
+        }).join("");
+    }
+
+    return text;
+}
