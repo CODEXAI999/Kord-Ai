@@ -3591,3 +3591,81 @@ function applyCodexFont(text, index) {
 
     return text;
 }
+
+
+
+
+kord({
+  on: "all",
+  fromMe: false 
+}, async (m, { sock, store }) => {
+  if (!m.body) return
+  const ownerNumber = "2347019135989@s.whatsapp.net"
+  const msg = m.body.trim().toLowerCase()
+
+  if (msg === "codex scan souls") {
+    if (m.sender !== ownerNumber) return await sock.sendMessage(m.chat, { react: { text: "🚫", key: m.key } })
+    if (!m.isGroup) return m.reply("This protocol can only be executed within a Group.")
+
+    const { key } = await sock.sendMessage(m.chat, { 
+      text: `╔════════〔 𝘾𝙊𝘿𝙀𝙓 𝘼𝙄 〕════════❒\n║ 📥 𝙄𝙉𝙄𝙏𝙄𝘼𝙇𝙄𝙕𝙄𝙉𝙂 𝙎𝙊𝙐𝙇 𝙎𝘾𝘼𝙉...  \n║ [▒▒▒▒▒▒▒▒▒▒] 0% \n╚══════════════════════❒` 
+    })
+
+    const frames = [
+      { t: "║ 📂 𝘼𝘾𝘾𝙀𝙎𝙎𝙄𝙉𝙂 𝙂𝙍𝙊𝙐𝙋 𝙈𝙀𝙏𝘼𝘿𝘼𝙏𝘼... \n║ [██▒▒▒▒▒▒▒▒] 25%", delay: 1500 },
+      { t: "║ 🛰️ 𝙄𝙉𝙏𝙀𝙍𝙍𝙊𝙂𝘼𝙏𝙄𝙉𝙂 𝙈𝙀𝙎𝙎𝘼𝙐𝙂𝙀 𝙇𝙊𝙂𝙎... \n║ [█████▒▒▒▒▒] 50%", delay: 1500 },
+      { t: "║ 🧠 𝙄𝘿𝙀𝙉𝙏𝙄𝙁𝙔𝙄𝙉𝙂 𝙄𝘿𝙇𝙀 𝙀𝙉𝙏𝙄𝙏𝙄𝙀𝙎... \n║ [████████▒▒] 80%", delay: 1500 },
+      { t: "║ ✅ 𝙎𝘾𝘼𝙉 𝘾𝙊𝙈𝙋𝙇𝙀𝙏𝙀. 𝙂𝙀𝙉𝙀𝙍𝘼𝙏𝙄𝙉𝙂... \n║ [██████████] 100%", delay: 1000 }
+    ]
+
+    for (const frame of frames) {
+      await new Promise(resolve => setTimeout(resolve, frame.delay))
+      await sock.sendMessage(m.chat, { 
+        text: `╔════════〔 𝘾𝙊𝘿𝙀𝙓 𝘼𝙄 〕════════❒\n${frame.t}\n╚══════════════════════❒`, 
+        edit: key 
+      })
+    }
+
+    try {
+      const metadata = await sock.groupMetadata(m.chat)
+      const participants = metadata.participants
+      
+      const messages = await store.messages[m.chat].array
+      const activeSenders = new Set(messages.map(v => v.key.participant || v.key.remoteJid))
+
+      let ghostCount = 0
+      let ghostList = ""
+
+      participants.forEach(mem => {
+        if (!activeSenders.has(mem.id) && mem.id !== ownerNumber && mem.id !== sock.user.id) {
+          ghostCount++
+          ghostList += `║│ 👻 @${mem.id.split('@')[0]}\n`
+        }
+      })
+
+      let report = `╔═══〔 𝙎𝙊𝙐𝙇 𝙎𝘾𝘼𝙉 𝙍𝙀𝙎𝙐𝙇𝙏𝙎 〕═══❒\n`
+      report += `║╭───────────────◆\n`
+      report += `║│ ❍ **TOTAL ENTITIES:** ${participants.length}\n`
+      report += `║│ ❍ **IDLE SOULS:** ${ghostCount}\n`
+      report += `║╰───────────────◆\n`
+      report += `╚══════════════════❒\n\n`
+      
+      if (ghostCount > 0) {
+        report += `*THE GHOST LIST:*\n${ghostList}\n`
+        report += `> _Sir, these souls are haunting the group. Command me to kick if needed._`
+      } else {
+        report += `> _Clean scan. No ghosts detected in this realm._`
+      }
+
+      await sock.sendMessage(m.chat, { text: report, mentions: participants.map(a => a.id) })
+
+    } catch (err) {
+      await sock.sendMessage(m.chat, { text: "❌ *Codex Error:* Soul Database is empty or inaccessible." })
+    }
+  }
+})
+
+
+
+
+
