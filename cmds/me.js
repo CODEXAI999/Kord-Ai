@@ -273,12 +273,11 @@ kord({
     
     let msg = `╔═══❍ 🤖 ${config().BOT_NAME} RUNTIME ❍═══❒\n`;
     msg += `║╭───────────────◆\n`;
-    msg += `║│ ❍ ⏰ Uptime: ${uptime}\n`;
-    msg += `║│ ❍ 💾 Memory: ${memoryMB} MB\n`;
-    msg += `║│ ❍ 🔄 PID: ${process.pid}\n`;
-    msg += `║│ ❍ 📅 Time: ${currentTime}\n`;
-    msg += `║│ ❍ 🚀 Node: ${process.version}\n`;
-    msg += `║│ ❍ 💻 Platform: ${process.platform}\n`;
+    msg += `║│ ❍ Memory: ${memoryMB} MB\n`;
+    msg += `║│ ❍PID: ${process.pid}\n`;
+    msg += `║│ ❍Time: ${currentTime}\n`;
+    msg += `║│ ❍Node: ${process.version}\n`;
+    msg += `║│ ❍Platform: ${process.platform}\n`;
     msg += `║╰───────────────◆\n`;
     msg += `║\n`;
     msg += `║  ❍ ✨ CODEX is running smoothly!\n`;
