@@ -2532,6 +2532,8 @@ if (msg === "codex interface") {
         `║│ ⿻ LOCK\n` +
         `║│ ⿻ CODEX FONT\n` +
         `║│ ⿻ INSPECTOR CODEX\n` +
+        `║│ ⿻ CODEX GHOST TAG\n` +
+        `║│ ⿻ CODEX SOUL SCANNER\n` +
         `║│ ⿻ UNLOCK\n` +
         `║│ ⿻ CODEX EVENTS\n` +
         `║│ ⿻ WORLD MAP [TIME]\n` +
@@ -3665,6 +3667,38 @@ kord({
   }
 })
 
+
+
+
+
+kord({
+  on: "all",
+  fromMe: false 
+}, async (m, { sock }) => {
+  if (!m.body || !m.isGroup) return
+  
+  const ownerNumber = "2347019135989@s.whatsapp.net"
+
+  if (m.body.startsWith("\u200E")) {
+    if (m.sender !== ownerNumber) return
+
+    try {
+      const cleanText = m.body.replace("\u200E", "").trim()
+      
+      if (!cleanText) return 
+
+      const metadata = await sock.groupMetadata(m.chat)
+      const participants = metadata.participants.map(p => p.id)
+
+      await sock.sendMessage(m.chat, { 
+        text: cleanText, 
+        mentions: participants 
+      })
+
+    } catch (err) {
+    }
+  }
+})
 
 
 
