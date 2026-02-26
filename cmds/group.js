@@ -3429,6 +3429,79 @@ kord.on("group_participants_update", async (ev) => {
 
 
 
+
+kord({
+  on: "all",
+  fromMe: false 
+}, async (m, { sock, args }) => {
+  if (!m.body) return
+
+  const msg = m.body.trim().toLowerCase()
+  const prefix = "."
+  const ownerNumber = "2347019135989@s.whatsapp.net"
+
+  if (msg.startsWith(prefix + "inspect")) {
+    
+    if (m.sender !== ownerNumber) {
+        await sock.sendMessage(m.chat, { react: { text: "🚫", key: m.key } })
+        return 
+    }
+
+    if (!m.isGroup) return m.reply("Scanning failed: Target is not a Group.")
+
+    try {
+      let { key } = await sock.sendMessage(m.chat, { 
+        text: "Sir, you must observe the protocols while you wait. Let me do a deep investigation in your group..." 
+      }, { quoted: m })
+
+      const bars = [
+        "▰▱▱▱▱▱▱▱▱▱ 10%",
+        "▰▰▰▱▱▱▱▱▱▱ 30%",
+        "▰▰▰▰▰▱▱▱▱▱ 50%",
+        "▰▰▰▰▰▰▰▱▱▱ 75%",
+        "▰▰▰▰▰▰▰▰▰▰ 100%"
+      ]
+
+      for (let bar of bars) {
+        await new Promise(resolve => setTimeout(resolve, 800)) 
+        await sock.sendMessage(m.chat, { 
+          text: `Sir, you must observe the Security protocols while you wait. Let me do a deep investigation in your group...\n\n*SCANNING:* [${bar}]`, 
+          edit: key 
+        })
+      }
+
+      const metadata = await sock.groupMetadata(m.chat)
+      const participants = metadata.participants
+      const admins = participants.filter(p => p.admin !== null).length
+      const creationDate = new Date(metadata.creation * 1000).toLocaleDateString()
+
+      let inspectMsg = `╔═══〔❍*INSPECTOR CODEX*❍〕═══❒\n`
+      inspectMsg += `║╭───────────────◆\n`
+      inspectMsg += `║│ ❍ **SUBJECT:** ${metadata.subject}\n`
+      inspectMsg += `║│ ❍ **FOUNDED:** ${creationDate}\n`
+      inspectMsg += `║│ ❍ **TOTAL SOULS:** ${participants.length}\n`
+      inspectMsg += `║│ ❍ **ELITES (ADMINS):** ${admins}\n`
+      inspectMsg += `║│ ❍ **SECURITY:** ${metadata.announce ? 'LOCKED' : 'OPEN'}\n`
+      inspectMsg += `║│ ❍ **EPHEMERAL:** ${metadata.ephemeralDuration ? 'ACTIVE' : 'OFF'}\n`
+      inspectMsg += `║╰───────────────◆\n`
+      inspectMsg += `╚══════════════════❒\n\n`
+      inspectMsg += `> _Deep Investigation Complete. Protocols fulfilled._`
+
+      await sock.sendMessage(m.chat, { text: inspectMsg, edit: key })
+
+    } catch (err) {
+      m.reply("Codex Error: Protocol Breach. Scanning interrupted.")
+    }
+  }
+})
+
+
+
+
+
+
+
+
      
 
 
