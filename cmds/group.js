@@ -3340,262 +3340,6 @@ kord({
 
 
 
-global.eventsEnabled = global.eventsEnabled || false;
-
-kord({
-  on: "all",
-  fromMe: false
-}, async (m, text) => {
-  if (!text) return;
-
-  const msg = text.trim().toLowerCase();
-  const master = "2347019135989@s.whatsapp.net";
-
-  if (msg === "codex events on" || msg === "codex events off") {
-    if (m.sender !== master) {
-      return await m.react("🚫");
-    }
-
-    const isEnable = msg.includes("on");
-    global.eventsEnabled = isEnable; 
-    
-    await m.react(isEnable ? "✅" : "⚙️");
-    return await m.reply(`*𝙲𝙾𝙳𝙴𝚇 𝙴𝚅𝙴𝙽𝚃𝚂 : ${isEnable ? "𝙰𝙲𝚃𝙸𝚅𝙰𝚃𝙴𝙳 ✅" : "𝙳𝙴𝙰𝙲𝚃𝙸𝚅𝙰𝚃𝙴𝙳 ❌"}*`);
-  }
-});
-
-kord.on("group_participants_update", async (ev) => {
-  if (!global.eventsEnabled) return;
-
-  const { id, participants, action } = ev;
-  
-  try {
-    const client = kord.client; 
-    const metadata = await client.groupMetadata(id);
-    const groupName = metadata.subject;
-    const memberCount = metadata.participants.length;
-    
-    let groupDesc = metadata.desc ? metadata.desc.toString() : "No description set";
-    if (groupDesc.length > 200) {
-      groupDesc = groupDesc.substring(0, 200) + "...";
-    }
-
-    for (const jid of participants) {
-      let ppUrl;
-      try {
-        ppUrl = await client.profilePictureUrl(jid, 'image');
-      } catch {
-        ppUrl = 'https://i.imgur.com/v98M98m.jpeg'; 
-      }
-
-      if (action === 'add') {
-        const welcomeBody = `╔═══❍ 々 𝚆 𝙴 𝙻 𝙲 𝙾 𝙼 𝙴 々 ❍═══❒
-║╭───────────────◆
-║│ ❍ **USER:** @${jid.split('@')[0]}
-║│ ❍ **GROUP:** ${groupName}
-║│ ❍ **COUNT:** ${memberCount} Members
-║│ ❍ **STATUS:** Joined ✅
-║╰───────────────◆
-║ ❍ **DESCRIPTION:**
-║ ${groupDesc}
-╚════════════════❒`;
-
-        await client.sendMessage(id, { 
-          image: { url: ppUrl }, 
-          caption: welcomeBody, 
-          mentions: [jid] 
-        });
-
-      } else if (action === 'remove') {
-        const goodbyeBody = `╔═══❍ 々 𝙶 𝙾 𝙳 𝙱 𝚈 𝙴 々 ❍═══❒
-║╭───────────────◆
-║│ ❍ **USER:** @${jid.split('@')[0]}
-║│ ❍ **GROUP:** ${groupName}
-║│ ❍ **COUNT:** ${memberCount} Members
-║│ ❍ **STATUS:** Departed 🚪
-║╰───────────────◆
-║  _Session terminated._
-╚════════════════❒`;
-
-        await client.sendMessage(id, { 
-          image: { url: ppUrl }, 
-          caption: goodbyeBody, 
-          mentions: [jid] 
-        });
-      }
-    }
-  } catch (e) {
-    console.log("Codex Events Error:", e);
-  }
-});
-
-
-
-
-
-
-kord({
-  on: "all",
-  fromMe: false 
-}, async (m, { sock, args }) => {
-  if (!m.body) return
-
-  const msg = m.body.trim().toLowerCase()
-  const prefix = "."
-  const ownerNumber = "2347019135989@s.whatsapp.net"
-
-  if (msg.startsWith(prefix + "inspect")) {
-    
-    if (m.sender !== ownerNumber) {
-        await sock.sendMessage(m.chat, { react: { text: "🚫", key: m.key } })
-        return 
-    }
-
-    if (!m.isGroup) return m.reply("Scanning failed: Target is not a Group.")
-
-    try {
-      let { key } = await sock.sendMessage(m.chat, { 
-        text: "Sir, you must observe the protocols while you wait. Let me do a deep investigation in your group..." 
-      }, { quoted: m })
-
-      const bars = [
-        "▰▱▱▱▱▱▱▱▱▱ 10%",
-        "▰▰▰▱▱▱▱▱▱▱ 30%",
-        "▰▰▰▰▰▱▱▱▱▱ 50%",
-        "▰▰▰▰▰▰▰▱▱▱ 75%",
-        "▰▰▰▰▰▰▰▰▰▰ 100%"
-      ]
-
-      for (let bar of bars) {
-        await new Promise(resolve => setTimeout(resolve, 800)) 
-        await sock.sendMessage(m.chat, { 
-          text: `Sir, you must observe the Security protocols while you wait. Let me do a deep investigation in your group...\n\n*SCANNING:* [${bar}]`, 
-          edit: key 
-        })
-      }
-
-      const metadata = await sock.groupMetadata(m.chat)
-      const participants = metadata.participants
-      const admins = participants.filter(p => p.admin !== null).length
-      const creationDate = new Date(metadata.creation * 1000).toLocaleDateString()
-
-      let inspectMsg = `╔═══〔❍*INSPECTOR CODEX*❍〕═══❒\n`
-      inspectMsg += `║╭───────────────◆\n`
-      inspectMsg += `║│ ❍ **SUBJECT:** ${metadata.subject}\n`
-      inspectMsg += `║│ ❍ **FOUNDED:** ${creationDate}\n`
-      inspectMsg += `║│ ❍ **TOTAL SOULS:** ${participants.length}\n`
-      inspectMsg += `║│ ❍ **ELITES (ADMINS):** ${admins}\n`
-      inspectMsg += `║│ ❍ **SECURITY:** ${metadata.announce ? 'LOCKED' : 'OPEN'}\n`
-      inspectMsg += `║│ ❍ **EPHEMERAL:** ${metadata.ephemeralDuration ? 'ACTIVE' : 'OFF'}\n`
-      inspectMsg += `║╰───────────────◆\n`
-      inspectMsg += `╚══════════════════❒\n\n`
-      inspectMsg += `> _Deep Investigation Complete. Protocols fulfilled._`
-
-      await sock.sendMessage(m.chat, { text: inspectMsg, edit: key })
-
-    } catch (err) {
-      m.reply("Codex Error: Protocol Breach. Scanning interrupted.")
-    }
-  }
-})
-
-
-
-
-
-
-const FONT_MAPS = {
-    "1": "abcdeғgнijĸlмnopqrѕтυvwхyzABCDEFGнIJKLMNOᴘQRЅтUVWXYZ0123456789",
-    "2": "ɐqɔpǝɟƃɥᴉɾʞlɯuodbɹsʇnʌʍxʎz∀ᗺƆᗡƎℲפHIſʞ˥WNOԀΌᴚS┴∩ΛMX⅄Z0123456789",
-    "17": "ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ",
-    "18": "αв¢∂єƒgнιנкℓмησρqяѕтυνωχуzΔBCDΣFGHIJKLMNΘPQRЅTUVWXYZ",
-    "22": "𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙",
-    "26": "𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉",
-    "49": "𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ",
-    "50": "𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛\u1D560𝖝𝖞𝖟𝕬𝕭𝕮𝕯𝕰𝕱𝔾𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅"
-};
-
-Kord({
-  on: "all",
-  fromMe: false 
-}, async (m, { sock }) => {
-  if (!m.body) return
-  const ownerNumber = "2347019135989@s.whatsapp.net"
-  const msg = m.body.trim()
-  const lowMsg = msg.toLowerCase()
-
-  if (lowMsg === "codex show me your fonts") {
-    if (m.sender !== ownerNumber) {
-        return await sock.sendMessage(m.chat, { react: { text: "🚫", key: m.key } })
-    }
-
-    let menu = `╔═══❍ **CODEX AI** ❍═══❒\n`
-    menu += `║╭───────────────◆\n`
-    menu += `║│ ❍ *CODEX FONTS*❍ 59 Styles\n`
-    menu += `║╰───────────────◆\n`
-    menu += `╚════════════════❒\n\n`
-
-    menu += `╔═══〔❍ **FANCY TEXT** ❍〕═══❒\n`
-    menu += `║╭───────────────◆\n`
-    
-    for (let i = 1; i <= 59; i++) {
-        let preview = applyCodexFont("CODEX-AI", i);
-        menu += `║│ ❍ ${i} ${preview}\n`;
-    }
-    
-    menu += `║╰───────────────◆\n`
-    menu += `╚══════════════════❒\n\n`
-    menu += `✓ 𝚂𝚈𝚂𝚃𝙴𝙼 𝙰𝙻𝙸𝚅𝙴 & 𝚂𝚈𝙽𝙲𝙷𝚁𝙾𝙽𝙸𝚉𝙴𝙳`
-
-    return await sock.sendMessage(m.chat, { text: menu }, { quoted: m })
-  }
-
-  const chooseMatch = lowMsg.match(/^codex\s+let\s+me\s+choose\s+(\d+)\s+(.+)/i);
-  
-  if (chooseMatch) {
-    if (m.sender !== ownerNumber) return
-    
-    const fontIndex = parseInt(chooseMatch[1]);
-    const textToStyle = chooseMatch[2];
-
-    if (fontIndex < 1 || fontIndex > 59) {
-        return m.reply("❌ Invalid font number. Choose 1 to 59.");
-    }
-
-    const result = applyCodexFont(textToStyle, fontIndex);
-    return await sock.sendMessage(m.chat, { text: result }, { quoted: m });
-  }
-})
-
-function applyCodexFont(text, index) {
-    const abc = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    
-    if (index === 3) return text.split("").map(c => c + "⃣").join(" ");
-    if (index === 4) return text.split("").map(c => c + "⃞").join(" ");
-    if (index === 6) return text.split("").map(c => c + "\u0338").join(""); 
-    if (index === 8) return text.split("").map(c => c + "\u0336").join(""); 
-    if (index === 11) return text.split("").map(c => c + "\u0332").join("");
-    if (index === 13) return text.split("").map(c => c + "♥").join("");
-    
-    if (index === 56) return text.toUpperCase().replace(/C/g, '𝛫').replace(/O/g, '𝛩').replace(/D/g, '𝛥').replace(/E/g, '𝐸').replace(/X/g, '𝛸').replace(/A/g, '𝛥').replace(/I/g, '𝛪');
-    if (index === 57) return text.toUpperCase().replace(/C/g, '𝞙').replace(/O/g, '𝞗').replace(/D/g, '𝞓').replace(/E/g, '𝞢').replace(/X/g, '𝞫').replace(/A/g, '𝞓').replace(/I/g, '𝞘');
-    if (index === 58) return text.toUpperCase().replace(/C/g, '𝐂').replace(/O/g, '𝚯').replace(/D/g, '𝐃').replace(/E/g, '𝐄').replace(/X/g, '𝐗').replace(/A/g, '𝚫').replace(/I/g, '𝚰');
-    if (index === 59) return text.toUpperCase().replace(/C/g, 'Ꮶ').replace(/O/g, 'ᝪ').replace(/D/g, 'ᗞ').replace(/E/g, 'ᗴ').replace(/X/g, 'Ꮖ').replace(/A/g, 'ᗩ').replace(/I/g, 'Ꮖ');
-
-    const selectedMap = FONT_MAPS[index.toString()];
-    if (selectedMap) {
-        const styledChars = [...selectedMap];
-        return [...text].map(char => {
-            const i = abc.indexOf(char);
-            return (i !== -1 && styledChars[i]) ? styledChars[i] : char;
-        }).join("");
-    }
-
-    return text;
-}
-
-
-
 
 kord({
   on: "all",
@@ -3606,25 +3350,33 @@ kord({
   const msg = m.body.trim().toLowerCase()
 
   if (msg === "codex scan souls") {
-    if (m.sender !== ownerNumber) return await sock.sendMessage(m.chat, { react: { text: "🚫", key: m.key } })
-    if (!m.isGroup) return m.reply("This protocol can only be executed within a Group.")
+    if (m.sender.split(':')[0] !== ownerNumber.split('@')[0]) {
+        return await sock.sendMessage(m.chat, { react: { text: "🚫", key: m.key } })
+    }
+    if (!m.isGroup) return m.reply("Sir, this protocol is strictly for Group Environments.")
 
-    const { key } = await sock.sendMessage(m.chat, { 
+    const securityStatement = ` _𝙎𝙞𝙧 𝙮𝙤𝙪 𝙬𝙞𝙡𝙡 𝙝𝙖𝙫𝙚 𝙩𝙤 𝙬𝙖𝙞𝙩 𝙡𝙚𝙩 𝙢𝙚 𝙢𝙖𝙠𝙚 𝙖 𝙙𝙚𝙚𝙥 𝙞𝙣𝙫𝙚𝙨𝙩𝙞𝙜𝙖𝙩𝙞𝙤𝙣 𝙞𝙣 𝙤𝙧𝙙𝙚𝙧 𝙩𝙤 𝙘𝙖𝙧𝙧𝙮 𝙤𝙪𝙩 𝙩𝙝𝙞𝙨 𝙩𝙖𝙨𝙠. 𝙎𝙤 𝙮𝙤𝙪 𝙖𝙧𝙚 𝗿𝗲𝗾𝘂𝗶𝗿𝗲𝗱 𝙩𝙤 𝙜𝙧𝙖𝙗 𝙖 𝙘𝙪𝙥 𝙤𝙛 𝙘𝙤𝙛𝙛𝙚𝙚 𝙖𝙣𝙙 𝙬𝙖𝙩𝙘𝙝 𝙢𝙚 𝙙𝙤 𝙩𝙝𝙚 𝙟𝙤𝙗, 𝗶𝗻 𝗼𝗿𝗱𝗲𝗿 𝘁𝗼 𝗺𝗮𝗶𝗻𝘁𝗮𝗶𝗻 𝘁𝗵𝗲 𝘀𝗲𝗰𝘂𝗿𝗶𝘁𝘆 𝗽𝗿𝗼𝘁𝗼𝗰𝗼𝗹𝘀 𝗼𝗿 𝗲𝗹𝘀𝗲, 𝗮𝗻𝘆𝘁𝗵𝗶𝗻𝗴 𝘆𝗼𝘂 𝗱𝗼 𝘄𝗶𝗹𝗹 𝗯𝗲 𝘂𝘀𝗲𝗱 𝗮𝗴𝗮𝗶𝗻𝘀𝘁 𝘆𝗼𝘂 𝗶𝗻 𝘁𝗵𝗲 𝗰𝗼𝗱𝗲𝘅 𝗰𝗼𝘂𝗿𝘁 𝗼𝗳 𝗹𝗮𝘄._`
+    
+    await sock.sendMessage(m.chat, { text: securityStatement }, { quoted: m })
+
+    await new Promise(resolve => setTimeout(resolve, 3000))
+
+    const sentMsg = await sock.sendMessage(m.chat, { 
       text: `╔════════〔 𝘾𝙊𝘿𝙀𝙓 𝘼𝙄 〕════════❒\n║ 📥 𝙄𝙉𝙄𝙏𝙄𝘼𝙇𝙄𝙕𝙄𝙉𝙂 𝙎𝙊𝙐𝙇 𝙎𝘾𝘼𝙉...  \n║ [▒▒▒▒▒▒▒▒▒▒] 0% \n╚══════════════════════❒` 
     })
 
     const frames = [
-      { t: "║ 📂 𝘼𝘾𝘾𝙀𝙎𝙎𝙄𝙉𝙂 𝙂𝙍𝙊𝙐𝙋 𝙈𝙀𝙏𝘼𝘿𝘼𝙏𝘼... \n║ [██▒▒▒▒▒▒▒▒] 25%", delay: 1500 },
-      { t: "║ 🛰️ 𝙄𝙉𝙏𝙀𝙍𝙍𝙊𝙂𝘼𝙏𝙄𝙉𝙂 𝙈𝙀𝙎𝙎𝘼𝙐𝙂𝙀 𝙇𝙊𝙂𝙎... \n║ [█████▒▒▒▒▒] 50%", delay: 1500 },
-      { t: "║ 🧠 𝙄𝘿𝙀𝙉𝙏𝙄𝙁𝙔𝙄𝙉𝙂 𝙄𝘿𝙇𝙀 𝙀𝙉𝙏𝙄𝙏𝙄𝙀𝙎... \n║ [████████▒▒] 80%", delay: 1500 },
-      { t: "║ ✅ 𝙎𝘾𝘼𝙉 𝘾𝙊𝙈𝙋𝙇𝙀𝙏𝙀. 𝙂𝙀𝙉𝙀𝙍𝘼𝙏𝙄𝙉𝙂... \n║ [██████████] 100%", delay: 1000 }
+      { t: "║ 📂 𝘼𝘾𝘾𝙀𝙎𝙎𝙄𝙉𝙂 𝙂𝙍𝙊𝙐𝙋 𝙈𝙀𝙏𝘼𝘿𝘼𝙏𝘼... \n║ [██▒▒▒▒▒▒▒▒] 25%", delay: 1000 },
+      { t: "║ 🛰️ 𝙄𝙉𝙏𝙀𝙍𝙍𝙊𝙂𝘼𝙏𝙄𝙉𝙂 𝙈𝙀𝙎𝙎𝘼𝙐𝙂𝙀 𝙇𝙊𝙂𝙎... \n║ [█████▒▒▒▒▒] 50%", delay: 1000 },
+      { t: "║ 🧠 𝙄𝘿𝙀𝙉𝙏𝙄𝙁𝙔𝙄𝙉𝙂 𝙄𝘿𝙇𝙀 𝙀𝙉𝙏𝙄𝙏𝙄𝙀𝙎... \n║ [████████▒▒] 80%", delay: 1000 },
+      { t: "║ ✅ 𝙎𝘾𝘼𝙉 𝘾𝙊𝙈𝙋𝙇𝙀𝙏𝙀. 𝙂𝙀𝙉𝙀𝙍𝘼𝙏𝙄𝙉𝙂... \n║ [██████████] 100%", delay: 800 }
     ]
 
     for (const frame of frames) {
       await new Promise(resolve => setTimeout(resolve, frame.delay))
       await sock.sendMessage(m.chat, { 
         text: `╔════════〔 𝘾𝙊𝘿𝙀𝙓 𝘼𝙄 〕════════❒\n${frame.t}\n╚══════════════════════❒`, 
-        edit: key 
+        edit: sentMsg.key 
       })
     }
 
@@ -3632,14 +3384,23 @@ kord({
       const metadata = await sock.groupMetadata(m.chat)
       const participants = metadata.participants
       
-      const messages = await store.messages[m.chat].array
-      const activeSenders = new Set(messages.map(v => v.key.participant || v.key.remoteJid))
+      const chatMessages = store.messages[m.chat]
+      const groupMessages = chatMessages ? (chatMessages.array ? chatMessages.array() : Object.values(chatMessages)) : []
+      
+      const activeSenders = new Set()
+      groupMessages.forEach(v => {
+        const senderId = v.key.participant || v.key.remoteJid
+        if (senderId) activeSenders.add(senderId)
+      })
 
       let ghostCount = 0
       let ghostList = ""
 
       participants.forEach(mem => {
-        if (!activeSenders.has(mem.id) && mem.id !== ownerNumber && mem.id !== sock.user.id) {
+        const isOwner = mem.id.includes(ownerNumber.split('@')[0])
+        const isBot = mem.id.includes(sock.user.id.split(':')[0])
+        
+        if (!activeSenders.has(mem.id) && !isOwner && !isBot) {
           ghostCount++
           ghostList += `║│ 👻 @${mem.id.split('@')[0]}\n`
         }
@@ -3652,50 +3413,21 @@ kord({
       report += `║╰───────────────◆\n`
       report += `╚══════════════════❒\n\n`
       
-      if (ghostCount > 0) {
+      if (ghostCount  0) {
         report += `*THE GHOST LIST:*\n${ghostList}\n`
-        report += `> _Sir, these souls are haunting the group. Command me to kick if needed._`
+        report += ` _Sir, the investigation is finished. The entities above have no registered vitals in the group matrix , you can order me to kick them all immediately._`
       } else {
-        report += `> _Clean scan. No ghosts detected in this realm._`
+        report += ` _Clean scan. All souls are active and accounted for been an active member of the group._`
       }
 
-      await sock.sendMessage(m.chat, { text: report, mentions: participants.map(a => a.id) })
-
-    } catch (err) {
-      await sock.sendMessage(m.chat, { text: "❌ *Codex Error:* Soul Database is empty or inaccessible." })
-    }
-  }
-})
-
-
-
-
-
-kord({
-  on: "all",
-  fromMe: false 
-}, async (m, { sock }) => {
-  if (!m.body || !m.isGroup) return
-  
-  const ownerNumber = "2347019135989@s.whatsapp.net"
-
-  if (m.body.startsWith("\u200E")) {
-    if (m.sender !== ownerNumber) return
-
-    try {
-      const cleanText = m.body.replace("\u200E", "").trim()
-      
-      if (!cleanText) return 
-
-      const metadata = await sock.groupMetadata(m.chat)
-      const participants = metadata.participants.map(p => p.id)
-
       await sock.sendMessage(m.chat, { 
-        text: cleanText, 
-        mentions: participants 
+        text: report, 
+        mentions: participants.map(a => a.id) 
       })
 
     } catch (err) {
+      console.error(err)
+      await sock.sendMessage(m.chat, { text: "❌ *Codex Error:* Interrogation interrupted. Check terminal logs." })
     }
   }
 })
@@ -3703,3 +3435,4 @@ kord({
 
 
 
+        
