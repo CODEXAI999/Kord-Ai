@@ -3338,7 +3338,6 @@ kord({
 
 
 
-
 kord({
   on: "all",
   fromMe: false 
@@ -3353,7 +3352,7 @@ kord({
     }
     if (!m.isGroup) return m.reply("Sir, this protocol is strictly for Group Environments.")
 
-    const securityStatement = ` _𝙎𝙞𝙧 𝙮𝙤𝙪 𝙬𝙞𝙡𝙡 𝙝𝙖𝙫𝙚 𝙩𝙤 𝙬𝙖𝙞𝙩 𝙡𝙚𝙩 𝙢𝙚 𝙢𝙖𝙠𝙚 𝙖 𝙙𝙚𝙚𝙥 𝙞𝙣𝙫𝙚𝙨𝙩𝙞𝙜𝙖𝙩𝙞𝙤𝙣 𝙞𝙣 𝙤𝙧𝙙𝙚𝙧 𝙩𝙤 𝙘𝙖𝙧𝙧𝙮 𝙤𝙪𝙩 𝙩𝙝𝙞𝙨 𝙩𝙖𝙨𝙠. 𝙎𝙤 𝙮𝙤𝙪 𝙖𝙧𝙚 𝗿𝗲𝗾𝘂𝗶𝗿𝗲𝗱 𝙩𝙤 𝙜𝙧𝙖𝙗 𝙖 𝙘𝙪𝙥 𝙤𝙛 𝙘𝙤𝙛𝙛𝙚𝙚 𝙖𝙣𝙙 𝙬𝙖𝙩𝙘𝙝 𝙢𝙚 𝙙𝙤 𝙩𝙝𝙚 𝙟𝙤𝙗, 𝗶𝗻 𝗼𝗿𝗱𝗲𝗿 𝘁𝗼 𝗺𝗮𝗶𝗻𝘁𝗮𝗶𝗻 𝘁𝗵𝗲 𝘀𝗲𝗰𝘂𝗿𝗶𝘁𝘆 𝗽𝗿𝗼𝘁𝗼𝗰𝗼𝗹𝘀 𝗼𝗿 𝗲𝗹𝘀𝗲, 𝗮𝗻𝘆𝘁𝗵𝗶𝗻𝗴 𝘆𝗼𝘂 𝗱𝗼 𝘄𝗶𝗹𝗹 𝗯𝗲 𝘂𝘀𝗲𝗱 𝗮𝗴𝗮𝗶𝗻𝘀𝘁 𝘆𝗼𝘂 𝗶𝗻 𝘁𝗵𝗲 𝗰𝗼𝗱𝗲𝘅 𝗰𝗼𝘂𝗿𝘁 𝗼𝗳 𝗹𝗮𝘄._`
+    const securityStatement = `_𝙎𝙞𝙧 𝙮𝙤𝙪 𝙬𝙞𝙡𝙡 𝙝𝙖𝙫𝙚 𝙩𝙤 𝙬𝙖𝙞𝙩 𝙡𝙚𝙩 𝙢𝙚 𝙢𝙖𝙠𝙚 𝙖 𝙙𝙚𝙚𝙥 𝙞𝙣𝙫𝙚𝙨𝙩𝙞𝙜𝙖𝙩𝙞𝙤𝙣 𝙞𝙣 𝙤𝙧𝙙𝙚𝙧 𝙩𝙤 𝙘𝙖𝙧𝙧𝙮 𝙤𝙪𝙩 𝙩𝙝𝙞𝙨 𝙩𝙖𝙨𝙠. 𝙎𝙤 𝙮𝙤𝙪 𝙖𝙧𝙚 𝗿𝗲𝗾𝘂𝗶𝗿𝗲𝗱 𝙩𝙤 𝙜𝙧𝙖𝙗 𝙖 𝙘𝙪𝙥 𝙤𝙛 𝙘𝙤𝙛𝙛𝙚𝙚 𝙖𝙣𝙙 𝙬𝙖𝙩𝙘𝙝 𝙢𝙚 𝙙𝙤 𝙩𝙝𝙚 𝙟𝙤𝙗, 𝗶𝗻 𝗼𝗿𝗱𝗲𝗿 𝘁𝗼 𝗺𝗮𝗶𝗻𝘁𝗮𝗶𝗻 𝘁𝗵𝗲 𝘀𝗲𝗰𝘂𝗿𝗶𝘁𝘆 𝗽𝗿𝗼𝘁𝗼𝗰𝗼𝗹𝘀 𝗼𝗿 𝗲𝗹𝘀𝗲, 𝗮𝗻𝘆𝘁𝗵𝗶𝗻𝗴 𝘆𝗼𝘂 𝗱𝗼 𝘄𝗶𝗹𝗹 𝗯𝗲 𝘂𝘀𝗲𝗱 𝗮𝗴𝗮𝗶𝗻𝘀𝘁 𝘆𝗼𝘂 𝗶𝗻 𝘁𝗵𝗲 𝗰𝗼𝗱𝗲𝘅 𝗰𝗼𝘂𝗿𝘁 𝗼𝗳 𝗹𝗮𝘄._`
     
     await sock.sendMessage(m.chat, { text: securityStatement }, { quoted: m })
 
@@ -3411,11 +3410,11 @@ kord({
       report += `║╰───────────────◆\n`
       report += `╚══════════════════❒\n\n`
       
-      if (ghostCount  0) {
+      if (ghostCount > 0) {
         report += `*THE GHOST LIST:*\n${ghostList}\n`
-        report += ` _Sir, the investigation is finished. The entities above have no registered vitals in the group matrix , you can order me to kick them all immediately._`
+        report += `_Sir, the investigation is finished. The entities above have no registered vitals in the group matrix, you can order me to kick them all immediately._`
       } else {
-        report += ` _Clean scan. All souls are active and accounted for been an active member of the group._`
+        report += `_Clean scan. All souls are active and accounted for being an active member of the group._`
       }
 
       await sock.sendMessage(m.chat, { 
