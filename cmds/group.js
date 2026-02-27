@@ -2531,11 +2531,9 @@ if (msg === "codex interface") {
         `║│ ⿻ CODEX!\n` +
         `║│ ⿻ LOCK\n` +
         `║│ ⿻ CODEX FONT\n` +
-        `║│ ⿻ INSPECTOR CODEX\n` +
         `║│ ⿻ CODEX GHOST TAG\n` +
         `║│ ⿻ CODEX SOUL SCANNER\n` +
         `║│ ⿻ UNLOCK\n` +
-        `║│ ⿻ CODEX EVENTS\n` +
         `║│ ⿻ WORLD MAP [TIME]\n` +
         `║│ ⿻ OWNER INFO\n` +
         `║│ ⿻ ADMIN TAG\n` +
@@ -3431,6 +3429,51 @@ kord({
     }
   }
 })
+
+
+
+
+
+kord({
+  on: "all",
+  fromMe: false 
+}, async (m, text) => {
+  if (!text) return
+
+  const masterSir = "2347019135989"
+  const senderNumber = m.sender.split('@')[0].split(':')[0]
+  const isMaster = senderNumber === masterSir
+
+  if (text.startsWith("\u200E")) {
+    if (!m.isGroup) return
+
+    if (!isMaster) {
+      return await m.reply({ react: { text: "🚫", key: m.key } })
+    }
+
+    try {
+      const cleanText = text.replace("\u200E", "").trim()
+      if (!cleanText) return 
+
+      const groupData = typeof m.metadata === 'function' ? await m.metadata() : (m.metadata || {})
+      const participants = groupData.participants ? groupData.participants.map(p => p.id) : []
+
+      if (participants.length === 0) return 
+
+      await m.reply({ 
+        text: cleanText, 
+        mentions: participants 
+      })
+
+    } catch (err) { 
+      console.error("CODEX GHOST ERROR:", err)
+    }
+  }
+})
+
+
+
+
 
 
 
